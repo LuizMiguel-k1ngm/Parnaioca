@@ -1,3 +1,6 @@
+<?php
+$error = $_GET['msg'] ?? '';
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -25,12 +28,12 @@
                         </h2>
 
                         <?php if (!empty($error)): ?>
-                        <div class="alert alert-danger" role="alert">
-                            <?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?>
-                        </div>
+                            <div class="alert alert-danger" role="alert">
+                                <?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?>
+                            </div>
                         <?php endif; ?>
 
-                        <form method="post" action="">
+                        <form method="post" action="../../Controllers/UsuarioController.php">
 
                             <div class="mb-3">
                                 <label for="usuario" class="form-label">
