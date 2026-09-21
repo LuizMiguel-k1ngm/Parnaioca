@@ -1,6 +1,7 @@
 <aside
     class="sidebar bg-white border-end"
     id="sidebarMenu"
+    
 >
     <div class="d-flex flex-column p-3 h-100">
 
@@ -23,7 +24,7 @@
         </div>
 
         <nav class="nav nav-pills flex-column gap-1">
-            <a class="nav-link active" href="/Parnaioca/inicio" title="Início">
+            <a class="nav-link link-dark" href="/Parnaioca/inicio" title="Início">
                 <i class="bi bi-house-door me-2" aria-hidden="true"></i>
                 <span class="sidebar-label">Início</span>
             </a>
