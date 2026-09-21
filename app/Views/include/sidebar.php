@@ -36,7 +36,7 @@
                     <span class="sidebar-label">Cadastro</span>
                     <i class="bi bi-chevron-down ms-auto sidebar-label" aria-hidden="true"></i>
                 </button>
-                <div class="collapse show sidebar-submenu" id="cadastroMenu">
+                <div class="collapse  sidebar-submenu" id="cadastroMenu">
                     <a class="nav-link link-dark" href="/Parnaioca/cadastro/hospede" title="Hóspede">
                         <i class="bi bi-person me-2" aria-hidden="true"></i><span class="sidebar-label">Hóspede</span>
                     </a>
@@ -65,7 +65,7 @@
                     <span class="sidebar-label">Relatórios</span>
                     <i class="bi bi-chevron-down ms-auto sidebar-label" aria-hidden="true"></i>
                 </button>
-                <div class="collapse show sidebar-submenu" id="relatoriosMenu">
+                <div class="collapse sidebar-submenu" id="relatoriosMenu">
                     <a class="nav-link link-dark" href="/Parnaioca/relatorios/financeiro" title="Financeiro">
                         <i class="bi bi-cash-coin me-2" aria-hidden="true"></i><span class="sidebar-label">Financeiro</span>
                     </a>
@@ -82,7 +82,7 @@
                     <span class="sidebar-label">Estoque</span>
                     <i class="bi bi-chevron-down ms-auto sidebar-label" aria-hidden="true"></i>
                 </button>
-                <div class="collapse show sidebar-submenu" id="estoqueMenu">
+                <div class="collapse  sidebar-submenu" id="estoqueMenu">
                     <a class="nav-link link-dark" href="/Parnaioca/estoque/produtos" title="Produtos">
                         <i class="bi bi-box me-2" aria-hidden="true"></i><span class="sidebar-label">Produtos</span>
                     </a>
