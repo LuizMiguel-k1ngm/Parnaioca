@@ -10,6 +10,11 @@ $path = str_replace($basePath, '', $requestPath);
 $path = rtrim($path, '/') ?: '/';
 $method = $_SERVER['REQUEST_METHOD'];
 
+if ($path === '/inicio' && empty($_SESSION['usuario'])) {
+    header('Location: ' . $basePath . '/login');
+    exit;
+}
+
 $routes = array_merge(
     require __DIR__ . '/routes/web.php',
     require __DIR__ . '/routes/cadastro.php',
