@@ -22,7 +22,7 @@ CREATE TABLE cargo (
 
     descricao VARCHAR(255),
 
-    ativo BOOLEAN NOT NULL DEFAULT TRUE,
+    status ENUM('ativo','inativo') NOT NULL DEFAULT 'ativo',
 
     data_cadastro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -46,7 +46,7 @@ CREATE TABLE permissao (
 
     tela VARCHAR(100),
 
-    ativo BOOLEAN NOT NULL DEFAULT TRUE,
+    status ENUM('ativo', 'inativo') NOT NULL DEFAULT 'ativo',
 
     data_cadastro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -107,7 +107,7 @@ CREATE TABLE funcionario (
 
     id_cargo INT NOT NULL,
 
-    ativo BOOLEAN NOT NULL DEFAULT TRUE,
+    status ENUM('ativo','inativo') NOT NULL DEFAULT 'ativo',
 
     data_cadastro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -135,7 +135,7 @@ CREATE TABLE usuario_login (
 
     id_funcionario INT NOT NULL,
 
-    ativo BOOLEAN NOT NULL DEFAULT TRUE,
+    status ENUM('ativo','inativo') NOT NULL DEFAULT 'ativo',
 
     ultimo_login DATETIME NULL,
 
@@ -176,7 +176,7 @@ CREATE TABLE cliente (
 
     cidade VARCHAR(100),
 
-    ativo BOOLEAN NOT NULL DEFAULT TRUE,
+    status ENUM('ativo','inativo') NOT NULL DEFAULT 'ativo',
 
     data_cadastro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -202,7 +202,7 @@ CREATE TABLE acomodacao (
 
     valor_diaria DECIMAL(10,2) NOT NULL,
 
-    ativo BOOLEAN NOT NULL DEFAULT TRUE,
+    status ENUM('ativo','inativo') NOT NULL DEFAULT 'ativo',
 
     data_cadastro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -228,7 +228,7 @@ CREATE TABLE estacionamento (
 
     id_acomodacao INT NULL,
 
-    ativo BOOLEAN NOT NULL DEFAULT TRUE,
+    status ENUM('ativo','inativo') NOT NULL DEFAULT 'ativo',
 
     data_cadastro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -254,7 +254,7 @@ CREATE TABLE status_reserva (
 
     descricao VARCHAR(100) NOT NULL,
 
-    ativo BOOLEAN NOT NULL DEFAULT TRUE,
+    status ENUM('ativo', 'inativo') NOT NULL DEFAULT 'ativo',
 
     CONSTRAINT uk_status_reserva_codigo
         UNIQUE (codigo)
@@ -334,7 +334,7 @@ CREATE TABLE item (
 
     valor DECIMAL(10,2) NOT NULL,
 
-    ativo BOOLEAN NOT NULL DEFAULT TRUE,
+    status ENUM('ativo', 'inativo') NOT NULL DEFAULT 'ativo',
 
     data_cadastro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -357,7 +357,7 @@ CREATE TABLE status_frigobar (
 
     descricao VARCHAR(100) NOT NULL,
 
-    ativo BOOLEAN NOT NULL DEFAULT TRUE,
+    status ENUM('ativo', 'inativo') NOT NULL DEFAULT 'ativo',
 
     CONSTRAINT uk_status_frigobar_codigo
         UNIQUE (codigo)
@@ -377,7 +377,7 @@ CREATE TABLE frigobar (
 
     numero_identificacao VARCHAR(50),
 
-    ativo BOOLEAN NOT NULL DEFAULT TRUE,
+    status ENUM('ativo', 'inativo') NOT NULL DEFAULT 'ativo',
 
     data_cadastro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
