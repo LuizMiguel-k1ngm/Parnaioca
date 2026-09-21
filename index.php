@@ -1,12 +1,28 @@
 <?php
 
-include 'vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 session_start();
 
-if (empty($_SESSION['usuario'])) {
-    header('Location: app/Views/login/index.php');
+$basePath = '/Parnaioca';
+$requestPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$path = str_replace($basePath, '', $requestPath);
+$path = rtrim($path, '/') ?: '/';
+$method = $_SERVER['REQUEST_METHOD'];
+
+$routes = array_merge(
+    require __DIR__ . '/routes/web.php',
+    require __DIR__ . '/routes/cadastro.php',
+    require __DIR__ . '/routes/consulta.php',
+    require __DIR__ . '/routes/app.php'
+);
+
+$routeKey = $method . ' ' . $path;
+
+if (!isset($routes[$routeKey])) {
+    http_response_code(404);
+    echo 'Página não encontrada';
     exit;
 }
 
-require 'app/Views/login/index.php';
+require $routes[$routeKey];

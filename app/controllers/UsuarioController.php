@@ -3,7 +3,7 @@
 session_start();
 require_once dirname(__DIR__) . '/Config/conn.php';
 
-$loginUrl = '../Views/login/index.php';
+$loginUrl = '/Parnaioca/login';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: ' . $loginUrl . '?msg=' . urlencode('Acesso não autorizado. Faça login.'));
@@ -44,5 +44,5 @@ $_SESSION['id_usuario'] = $usuarioEncontrado['id_usuario'];
 $_SESSION['id_funcionario'] = $usuarioEncontrado['id_funcionario'];
 $_SESSION['tempo'] = time();
 
-header('Location: /Parnaioca/app/Views/inicio/index.php');
+header('Location: /Parnaioca/inicio');
 exit;

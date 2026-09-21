@@ -33,7 +33,7 @@ $error = $_GET['msg'] ?? '';
                             </div>
                         <?php endif; ?>
 
-                        <form method="post" action="/Parnaioca/app/controllers/UsuarioController.php">
+                        <form method="post" action="/Parnaioca/login">
 
                             <div class="mb-3">
                                 <label for="usuario" class="form-label">
