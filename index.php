@@ -9,4 +9,4 @@ if (empty($_SESSION['usuario'])) {
     exit;
 }
 
-require 'app/Views/index.php';
+require 'app/Views/login/index.php';
