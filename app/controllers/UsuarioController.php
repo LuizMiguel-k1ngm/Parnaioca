@@ -38,9 +38,11 @@ if (!$usuarioEncontrado || !password_verify($senha, $usuarioEncontrado['senha_ha
 }
 
 session_regenerate_id(true);
+
 $_SESSION['usuario'] = $usuarioEncontrado['usuario'];
 $_SESSION['id_usuario'] = $usuarioEncontrado['id_usuario'];
 $_SESSION['id_funcionario'] = $usuarioEncontrado['id_funcionario'];
 $_SESSION['tempo'] = time();
 
-header('Location: ../Views/index.php');
+header('Location: /Parnaioca/app/Views/inicio/index.php');
+exit;
