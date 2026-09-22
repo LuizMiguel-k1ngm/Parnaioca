@@ -1,8 +1,6 @@
 <aside
     class="sidebar bg-white border-end"
-    id="sidebarMenu"
-    
->
+    id="sidebarMenu">
     <div class="d-flex flex-column p-3 h-100">
 
         <div class="d-flex justify-content-end mb-3">
@@ -13,8 +11,7 @@
                 aria-expanded="true"
                 aria-controls="sidebarMenu"
                 aria-label="Expandir ou recolher menu"
-                title="Expandir/recolher menu"
-            >
+                title="Expandir/recolher menu">
                 <i class="bi bi-list" aria-hidden="true"></i>
             </button>
         </div>
@@ -24,7 +21,7 @@
         </div>
 
         <nav class="nav nav-pills flex-column gap-1">
-            <a class="nav-link link-dark" href="/Parnaioca/inicio" title="Início">
+            <a class="nav-link link-dark" href="/panaoica/inicio" title="Início">
                 <i class="bi bi-house-door me-2" aria-hidden="true"></i>
                 <span class="sidebar-label">Início</span>
             </a>
@@ -37,22 +34,22 @@
                     <i class="bi bi-chevron-down ms-auto sidebar-label" aria-hidden="true"></i>
                 </button>
                 <div class="collapse  sidebar-submenu" id="cadastroMenu">
-                    <a class="nav-link link-dark" href="/Parnaioca/cadastro/hospede" title="Hóspede">
+                    <a class="nav-link link-dark" href="/panaoica/cadastro/hospede" title="Hóspede">
                         <i class="bi bi-person me-2" aria-hidden="true"></i><span class="sidebar-label">Hóspede</span>
                     </a>
-                    <a class="nav-link link-dark" href="/Parnaioca/cadastro/quarto" title="Quarto">
+                    <a class="nav-link link-dark" href="/panaoica/cadastro/quarto" title="Quarto">
                         <i class="bi bi-door-open me-2" aria-hidden="true"></i><span class="sidebar-label">Quarto</span>
                     </a>
-                    <a class="nav-link link-dark" href="/Parnaioca/cadastro/frigobar" title="Frigobar">
+                    <a class="nav-link link-dark" href="/panaoica/cadastro/frigobar" title="Frigobar">
                         <i class="bi bi-cup-hot me-2" aria-hidden="true"></i><span class="sidebar-label">Frigobar</span>
                     </a>
-                    <a class="nav-link link-dark" href="/Parnaioca/cadastro/consumo" title="Consumo">
+                    <a class="nav-link link-dark" href="/panaoica/cadastro/consumo" title="Consumo">
                         <i class="bi bi-cart-plus me-2" aria-hidden="true"></i><span class="sidebar-label">Consumo</span>
                     </a>
-                    <a class="nav-link link-dark" href="/Parnaioca/cadastro/itens" title="Itens">
+                    <a class="nav-link link-dark" href="/panaoica/cadastro/itens" title="Itens">
                         <i class="bi bi-box-seam me-2" aria-hidden="true"></i><span class="sidebar-label">Itens</span>
                     </a>
-                    <a class="nav-link link-dark" href="/Parnaioca/cadastro/acesso" title="Acesso">
+                    <a class="nav-link link-dark" href="/panaoica/cadastro/acesso" title="Acesso">
                         <i class="bi bi-key me-2" aria-hidden="true"></i><span class="sidebar-label">Acesso</span>
                     </a>
                 </div>
@@ -66,10 +63,10 @@
                     <i class="bi bi-chevron-down ms-auto sidebar-label" aria-hidden="true"></i>
                 </button>
                 <div class="collapse sidebar-submenu" id="relatoriosMenu">
-                    <a class="nav-link link-dark" href="/Parnaioca/relatorios/financeiro" title="Financeiro">
+                    <a class="nav-link link-dark" href="/panaoica/relatorios/financeiro" title="Financeiro">
                         <i class="bi bi-cash-coin me-2" aria-hidden="true"></i><span class="sidebar-label">Financeiro</span>
                     </a>
-                    <a class="nav-link link-dark" href="/Parnaioca/relatorios/dashboard" title="Dashboard">
+                    <a class="nav-link link-dark" href="/panaoica/relatorios/dashboard" title="Dashboard">
                         <i class="bi bi-speedometer2 me-2" aria-hidden="true"></i><span class="sidebar-label">Dashboard</span>
                     </a>
                 </div>
@@ -83,10 +80,10 @@
                     <i class="bi bi-chevron-down ms-auto sidebar-label" aria-hidden="true"></i>
                 </button>
                 <div class="collapse  sidebar-submenu" id="estoqueMenu">
-                    <a class="nav-link link-dark" href="/Parnaioca/estoque/produtos" title="Produtos">
+                    <a class="nav-link link-dark" href="/panaoica/estoque/produtos" title="Produtos">
                         <i class="bi bi-box me-2" aria-hidden="true"></i><span class="sidebar-label">Produtos</span>
                     </a>
-                    <a class="nav-link link-dark" href="/Parnaioca/estoque/movimentacoes" title="Movimentações">
+                    <a class="nav-link link-dark" href="/panaoica/estoque/movimentacoes" title="Movimentações">
                         <i class="bi bi-arrow-left-right me-2" aria-hidden="true"></i><span class="sidebar-label">Movimentações</span>
                     </a>
                 </div>

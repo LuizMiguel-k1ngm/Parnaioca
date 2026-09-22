@@ -4,7 +4,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 session_start();
 
-$basePath = '/Parnaioca';
+$basePath = '/panaoica';
 $requestPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $path = str_replace($basePath, '', $requestPath);
 $path = rtrim($path, '/') ?: '/';
