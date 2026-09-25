@@ -48,7 +48,7 @@
                     </div>
 
                     <div class="card-body p-4">
-                        <form method="post" action="/panaoica/cadastro/hospede">
+                        <form method="post" action="/panaoica/cadastro/hospedes">
                             <div class="row g-3">
                                 <div class="col-12 col-md-8">
                                     <label for="nome" class="form-label">Nome completo</label>
