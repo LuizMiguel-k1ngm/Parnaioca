@@ -11,6 +11,7 @@ class Hospede
                 cpf,
                 email,
                 telefone,
+                cep,
                 estado,
                 cidade,
                 rg,
@@ -22,10 +23,11 @@ class Hospede
             VALUES
             (
                 :nome,
-                :data_nascimento,
+    date_format(:data_nascimento, "d/m/Y"),
                 :cpf,
                 :email,
                 :telefone,
+                :cep,
                 :estado,
                 :cidade,
                 :rg,
@@ -42,6 +44,7 @@ class Hospede
             ':cpf' => $dados['cpf'],
             ':email' => $dados['email'],
             ':telefone' => $dados['telefone'],
+            ':cep' => $dados['cep'],
             ':estado' => $dados['estado'],
             ':cidade' => $dados['cidade'],
             ':rg' => $dados['rg'],

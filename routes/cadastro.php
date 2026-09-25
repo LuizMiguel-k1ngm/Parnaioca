@@ -12,7 +12,7 @@ return [
     'GET /cadastro/produto' => __DIR__ . '/../app/Views/cadastro/produtos/index.php',
     
     //Rotas para o controller
-    'POST /cadastro/hospede' => __DIR__ . '/../app/Controllers/HospedeController.php'
+    'POST /cadastro/hospedes' => __DIR__ . '/../app/Controllers/HospedeController.php'
 
 
 ];

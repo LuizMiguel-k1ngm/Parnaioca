@@ -172,6 +172,8 @@ CREATE TABLE cliente (
 
     telefone VARCHAR(15),
 
+    cep VARCHAR(9),
+
     estado CHAR(2),
 
     cidade VARCHAR(100),

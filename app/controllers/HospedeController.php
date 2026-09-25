@@ -1,12 +1,13 @@
 <?php
 
 require_once __DIR__ . '/../config/conn.php';
-require_once __DIR__ . '/../Models/cliente/Hospede.php';
+require_once __DIR__ . '/../Models/cliente/index.php';
 
 $nome = trim($_POST['nome'] ?? '');
 $cpf = trim($_POST['cpf'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $telefone = trim($_POST['telefone'] ?? '');
+$cep = trim($_POST['cep'] ?? '');
 $dataNascimento = trim($_POST['data_nascimento'] ?? '');
 $estado = trim($_POST['estado'] ?? '');
 $cidade = trim($_POST['cidade'] ?? '');
@@ -32,6 +33,10 @@ if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $erros[] = 'O e-mail informado é inválido.';
 }
 
+if ($cep !== '' && strlen(preg_replace('/\D/', '', $cep)) !== 8) {
+    $erros[] = 'O CEP deve conter 8 dígitos.';
+}
+
 if ($dataNascimento !== '') {
     $data = DateTime::createFromFormat('Y-m-d', $dataNascimento);
 
@@ -55,6 +60,8 @@ if (!empty($erros)) {
 }
 
 $cpf = preg_replace('/\D/', '', $cpf);
+$cep = preg_replace('/\D/', '', $cep);
+$cep = $cep === '' ? null : substr($cep, 0, 5) . '-' . substr($cep, 5);
 $numero = $numero === '' ? null : (int) $numero;
 $dataNascimento = $dataNascimento === '' ? null : $dataNascimento;
 $rg = $rg === '' ? null : $rg;
@@ -71,6 +78,7 @@ try {
         'cpf' => $cpf,
         'email' => $email === '' ? null : $email,
         'telefone' => $telefone === '' ? null : $telefone,
+        'cep' => $cep,
         'estado' => $estado === '' ? null : strtoupper($estado),
         'cidade' => $cidade === '' ? null : $cidade,
         'rg' => $rg,
