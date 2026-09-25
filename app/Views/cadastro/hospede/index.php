@@ -22,6 +22,30 @@
         <main class="main-content flex-grow-1 p-3 p-md-4">
             <div class="container-fluid">
 
+                <?php
+                $hospedeErros = $_SESSION['hospede_erros'] ?? [];
+                $hospedeSucesso = isset($_GET['sucesso']);
+                unset($_SESSION['hospede_erros']);
+                ?>
+
+                <?php if ($hospedeSucesso): ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        Hóspede cadastrado com sucesso.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (!empty($hospedeErros)): ?>
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Confira os dados informados:</strong>
+                        <ul class="mb-0 mt-2">
+                            <?php foreach ($hospedeErros as $erro): ?>
+                                <li><?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+
                 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
                     <div>
                         <h1 class="h3 mb-1">Cadastro de hóspedes</h1>
@@ -48,7 +72,7 @@
                     </div>
 
                     <div class="card-body p-4">
-                        <form method="post" action="/panaoica/cadastro/hospedes">
+                        <form method="post" action="/panaoica/cadastro/hospede">
                             <div class="row g-3">
                                 <div class="col-12 col-md-8">
                                     <label for="nome" class="form-label">Nome completo</label>

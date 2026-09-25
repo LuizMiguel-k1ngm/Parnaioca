@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Frigobar</h1>
+    <h1>Dashboard</h1>
     
 </body>
 </html>

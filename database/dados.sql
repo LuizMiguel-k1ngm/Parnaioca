@@ -180,6 +180,16 @@ CREATE TABLE cliente (
 
     data_cadastro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
+    rg VARCHAR(9),
+
+    endereco VARCHAR(50),
+
+    numero INT,
+
+    pais VARCHAR(40),
+
+    observacao VARCHAR(100),
+
     CONSTRAINT uk_cliente_cpf
         UNIQUE (cpf)
 );
