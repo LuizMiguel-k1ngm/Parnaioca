@@ -17,6 +17,13 @@ $numero = trim($_POST['numero'] ?? '');
 $pais = trim($_POST['pais'] ?? '');
 $observacao = trim($_POST['observacoes'] ?? '');
 
+//Guardar os dados para persistencia
+
+$_SESSION['hospede_nome'] = $nome;
+$_SESSION['hospede_cpf'] = $cpf;
+$_SESSION['hospede_rg'] = $rg; 
+
+
 $erros = [];
 
 if ($nome === '') {

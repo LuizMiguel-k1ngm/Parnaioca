@@ -23,9 +23,18 @@
             <div class="container-fluid">
 
                 <?php
+                //persistencia de dados
                 $hospedeErros = $_SESSION['hospede_erros'] ?? [];
+                $hospedeNome = $_SESSION['hospede_nome'] ?? '';
+                $hospedeCpf = $_SESSION['hospede_cpf'];
+                $hospedeRg = $_SESSION['hospede_rg'];
+
                 $hospedeSucesso = isset($_GET['sucesso']);
+
+                //parametros da persistencia
                 unset($_SESSION['hospede_erros']);
+                unset($_SESSION['hospede_nome']);
+                unset($_SESSION['hospede_cpf']);
                 ?>
 
                 <?php if ($hospedeSucesso): ?>
@@ -81,6 +90,7 @@
                                         class="form-control"
                                         id="nome"
                                         name="nome"
+                                        value="<?= htmlspecialchars($hospedeNome, ENT_QUOTES, 'UTF-8') ?>"
                                         placeholder="Digite o nome completo"
                                         required>
                                 </div>
@@ -92,6 +102,7 @@
                                         class="form-control"
                                         id="cpf"
                                         name="cpf"
+                                        value="<?= htmlspecialchars($hospedeCpf, ENT_QUOTES, 'UTF-8') ?>"
                                         placeholder="000.000.000-00"
                                         required>
                                 </div>
@@ -103,6 +114,7 @@
                                         class="form-control"
                                         id="rg"
                                         name="rg"
+                                        value="<?= htmlspecialchars($hospedeRg, ENT_QUOTES, 'UTF-8') ?>"
                                         placeholder="Digite o RG">
                                 </div>
 
