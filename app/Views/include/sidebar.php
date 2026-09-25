@@ -80,10 +80,10 @@
                     <i class="bi bi-chevron-down ms-auto sidebar-label" aria-hidden="true"></i>
                 </button>
                 <div class="collapse  sidebar-submenu" id="estoqueMenu">
-                    <a class="nav-link link-dark" href="/panaoica/estoque/produtos" title="Produtos">
+                    <a class="nav-link link-dark" href="/panaoica/cadastro/produto" title="Produtos">
                         <i class="bi bi-box me-2" aria-hidden="true"></i><span class="sidebar-label">Produtos</span>
                     </a>
-                    <a class="nav-link link-dark" href="/panaoica/estoque/movimentacoes" title="Movimentações">
+                    <a class="nav-link link-dark" href="/panaoica/cadastro/movimentacao" title="Movimentações">
                         <i class="bi bi-arrow-left-right me-2" aria-hidden="true"></i><span class="sidebar-label">Movimentações</span>
                     </a>
                 </div>
