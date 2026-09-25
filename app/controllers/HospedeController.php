@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../config/conn.php';
+require_once __DIR__ . '/../Models/cliente/Hospede.php';
 
 $nome = trim($_POST['nome'] ?? '');
 $cpf = trim($_POST['cpf'] ?? '');
@@ -64,24 +65,19 @@ $observacao = $observacao === '' ? null : $observacao;
 try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $sql = 'INSERT INTO cliente
-        (nome, data_nascimento, cpf, email, telefone, estado, cidade, rg, endereco, numero, pais, observacao)
-        VALUES (:nome, :data_nascimento, :cpf, :email, :telefone, :estado, :cidade, :rg, :endereco, :numero, :pais, :observacao)';
-
-    $statement = $conn->prepare($sql);
-    $statement->execute([
-        ':nome' => $nome,
-        ':data_nascimento' => $dataNascimento,
-        ':cpf' => $cpf,
-        ':email' => $email === '' ? null : $email,
-        ':telefone' => $telefone === '' ? null : $telefone,
-        ':estado' => $estado === '' ? null : strtoupper($estado),
-        ':cidade' => $cidade === '' ? null : $cidade,
-        ':rg' => $rg,
-        ':endereco' => $endereco,
-        ':numero' => $numero,
-        ':pais' => $pais,
-        ':observacao' => $observacao,
+    Hospede::criar($conn, [
+        'nome' => $nome,
+        'data_nascimento' => $dataNascimento,
+        'cpf' => $cpf,
+        'email' => $email === '' ? null : $email,
+        'telefone' => $telefone === '' ? null : $telefone,
+        'estado' => $estado === '' ? null : strtoupper($estado),
+        'cidade' => $cidade === '' ? null : $cidade,
+        'rg' => $rg,
+        'endereco' => $endereco,
+        'numero' => $numero,
+        'pais' => $pais,
+        'observacao' => $observacao,
     ]);
 } catch (PDOException $exception) {
     $_SESSION['hospede_erros'] = $exception->getCode() === '23000'
