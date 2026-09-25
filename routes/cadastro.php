@@ -1,6 +1,7 @@
 <?php
 
 return [
+    //Rotas das telas;
     'GET /cadastro' => __DIR__ . '/../app/Views/cadastro/index.php',
     'GET /cadastro/hospede' => __DIR__ . '/../app/Views/cadastro/hospede/index.php',
     'GET /cadastro/funcionario' => __DIR__ . '/../app/Views/cadastro/funcionario/index.php',
