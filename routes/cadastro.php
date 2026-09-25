@@ -9,7 +9,11 @@ return [
     'GET /cadastro/quarto' => __DIR__ . '/../app/Views/cadastro/quarto/index.php',
     'GET /cadastro/frigobar' => __DIR__ . '/../app/Views/cadastro/frigobar/index.php',
     'GET /cadastro/movimentacao' => __DIR__ . '/../app/Views/cadastro/movimentacoes/index.php',
-    'GET /cadastro/produto' => __DIR__ . '/../app/Views/cadastro/produtos/index.php'
+    'GET /cadastro/produto' => __DIR__ . '/../app/Views/cadastro/produtos/index.php',
+    
+    //Rotas para o controller
+
+    'POST /cadastro/hospedes' => __DIR__. '/../Controllers/HospedeController.php'
 
 
 ];
