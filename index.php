@@ -18,7 +18,6 @@ if ($path === '/inicio' && empty($_SESSION['usuario'])) {
 $routes = array_merge(
     require __DIR__ . '/routes/web.php',
     require __DIR__ . '/routes/cadastro.php',
-    require __DIR__ . '/routes/consulta.php',
     require __DIR__ . '/routes/app.php',
     require __DIR__ . '/routes/relatorio.php',
 );
