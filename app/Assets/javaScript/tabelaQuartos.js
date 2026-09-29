@@ -34,3 +34,15 @@
                 });
             });
         });
+
+        document.querySelectorAll('.btn-editar-quarto').forEach((button) => {
+            button.addEventListener('click', () => {
+                document.getElementById('editar_id_acomodacao').value = button.dataset.id;
+                document.getElementById('editar_nome').value = button.dataset.nome;
+                document.getElementById('editar_numero_quarto').value = button.dataset.numero;
+                document.getElementById('editar_tipo_acomodacao').value = button.dataset.tipo;
+                document.getElementById('editar_capacidade').value = button.dataset.capacidade;
+                document.getElementById('editar_valor_diaria').value = button.dataset.valor;
+                document.getElementById('editar_status').value = button.dataset.status;
+            });
+        });

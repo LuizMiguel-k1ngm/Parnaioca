@@ -13,7 +13,8 @@ return [
     
     //Rotas para o controller
     'POST /cadastro/hospedes' => __DIR__ . '/../app/Controllers/HospedeController.php',
-    'POST /cadastro/quarto' => __DIR__ . '/../app/Controllers/QuartoController.php'
+    'POST /cadastro/quarto' => __DIR__ . '/../app/Controllers/QuartoController.php',
+    'POST /cadastro/quarto/editar' => __DIR__ . '/../app/Controllers/QuartoController.php'
 
 
 ];

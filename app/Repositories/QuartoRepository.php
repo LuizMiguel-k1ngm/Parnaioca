@@ -61,6 +61,30 @@ class QuartoRepository
 		]);
 	}
 
+	public function atualizarQuarto(int $id, Quarto $quarto): void
+	{
+		$sql = 'UPDATE acomodacao
+			SET nome = :nome,
+				numero_quarto = :numero_quarto,
+				tipo_acomodacao = :tipo_acomodacao,
+				capacidade = :capacidade,
+				valor_diaria = :valor_diaria,
+				status = :status
+			WHERE id_acomodacao = :id_acomodacao';
+
+		$dados = $quarto->dados();
+		$statement = $this->conn->prepare($sql);
+		$statement->execute([
+			':nome' => $dados['nome'],
+			':numero_quarto' => $dados['numero_quarto'],
+			':tipo_acomodacao' => $dados['tipo_acomodacao'],
+			':capacidade' => $dados['capacidade'],
+			':valor_diaria' => $dados['valor_diaria'],
+			':status' => $dados['status'],
+			':id_acomodacao' => $id,
+		]);
+	}
+
 
 
 }

@@ -225,7 +225,20 @@ $quartosAtivos = (new QuartoRepository($conn))->buscarQuartosAtivos();
                                                     <span class="badge text-bg-success">Ativo</span>
                                                 </td>
                                                 <td class="quarto-actions text-end px-4">
-                                                    <button type="button" class="btn btn-sm btn-outline-warning me-1" title="Editar quarto" aria-label="Editar quarto">
+                                                    <button
+                                                        type="button"
+                                                        class="btn btn-sm btn-outline-warning me-1 btn-editar-quarto"
+                                                        title="Editar quarto"
+                                                        aria-label="Editar quarto"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#modalEditarQuarto"
+                                                        data-id="<?= (int) $quarto['id_acomodacao'] ?>"
+                                                        data-nome="<?= htmlspecialchars($quarto['nome'], ENT_QUOTES, 'UTF-8') ?>"
+                                                        data-numero="<?= (int) $quarto['numero_quarto'] ?>"
+                                                        data-tipo="<?= htmlspecialchars($quarto['tipo_acomodacao'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                                                        data-capacidade="<?= (int) $quarto['capacidade'] ?>"
+                                                        data-valor="<?= htmlspecialchars((string) $quarto['valor_diaria'], ENT_QUOTES, 'UTF-8') ?>"
+                                                        data-status="<?= htmlspecialchars($quarto['status'] ?? 'ativo', ENT_QUOTES, 'UTF-8') ?>">
                                                         <i class="bi bi-pencil-square"></i>
                                                     </button>
                                                     <button type="button" class="btn btn-sm btn-outline-danger" title="Excluir quarto" aria-label="Excluir quarto">
@@ -240,13 +253,13 @@ $quartosAtivos = (new QuartoRepository($conn))->buscarQuartosAtivos();
                         </div>
                     </div>
                 </div>
+
+                <?php require __DIR__ . '/include/modalEditar.php'; ?>
             </div>
         </main>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/panaoica/app/Assets/javaScript/tabelaQuartos.js"></script>
-        
-    </script>
 </body>
 </html>
