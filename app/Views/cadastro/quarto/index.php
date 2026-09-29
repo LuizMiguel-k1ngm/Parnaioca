@@ -33,7 +33,17 @@ $quartosAtivos = (new QuartoRepository($conn))->buscarQuartosAtivos();
 
         #tabelaQuartos {
             min-width: 820px;
+            width: 100% !important;
+            table-layout: fixed;
         }
+
+        #tabelaQuartos col:nth-child(1) { width: 26%; }
+        #tabelaQuartos col:nth-child(2) { width: 12%; }
+        #tabelaQuartos col:nth-child(3) { width: 17%; }
+        #tabelaQuartos col:nth-child(4) { width: 11%; }
+        #tabelaQuartos col:nth-child(5) { width: 14%; }
+        #tabelaQuartos col:nth-child(6) { width: 10%; }
+        #tabelaQuartos col:nth-child(7) { width: 10%; }
 
         #tabelaQuartos thead th {
             padding-top: 0.85rem;
@@ -48,6 +58,9 @@ $quartosAtivos = (new QuartoRepository($conn))->buscarQuartosAtivos();
         #tabelaQuartos tbody td {
             padding-top: 0.9rem;
             padding-bottom: 0.9rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .quarto-actions {
@@ -169,6 +182,15 @@ $quartosAtivos = (new QuartoRepository($conn))->buscarQuartosAtivos();
                     <div class="card-body p-0">
                         <div class="quartos-table-wrapper">
                             <table id="tabelaQuartos" class="table table-hover align-middle mb-0">
+                                <colgroup>
+                                    <col>
+                                    <col>
+                                    <col>
+                                    <col>
+                                    <col>
+                                    <col>
+                                    <col>
+                                </colgroup>
                                 <thead class="table-light">
                                     <tr>
                                         <th class="px-2">Nome</th>
