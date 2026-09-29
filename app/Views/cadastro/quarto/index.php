@@ -26,6 +26,69 @@ $quartosAtivos = (new QuartoRepository($conn))->buscarQuartosAtivos();
     <link href="/panaoica/app/Assets/css/style.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/v/dt/dt-3.1.1/datatables.min.css" rel="stylesheet">
     <script src="https://cdn.datatables.net/v/dt/dt-3.1.1/datatables.min.js"></script>
+    <style>
+        .quartos-table-wrapper {
+            overflow-x: auto;
+        }
+
+        #tabelaQuartos {
+            min-width: 820px;
+        }
+
+        #tabelaQuartos thead th {
+            padding-top: 0.85rem;
+            padding-bottom: 0.85rem;
+            color: #495057;
+            font-size: 0.78rem;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        #tabelaQuartos tbody td {
+            padding-top: 0.9rem;
+            padding-bottom: 0.9rem;
+        }
+
+        .quarto-actions {
+            white-space: nowrap;
+        }
+
+        .quarto-actions .btn {
+            width: 34px;
+            height: 34px;
+            padding: 0;
+        }
+
+        .dt-layout-row {
+            align-items: center;
+            gap: 1rem;
+            padding: 0.85rem 1rem;
+        }
+
+        .dt-layout-cell {
+            margin: 0 !important;
+        }
+
+        .dt-search input,
+        .dt-length select {
+            min-height: 38px;
+            border: 1px solid #ced4da;
+            border-radius: 0.375rem;
+            padding: 0.375rem 0.75rem;
+        }
+
+        @media (max-width: 576px) {
+            .dt-layout-row {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .dt-search input {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body class="bg-light">
     <?php require __DIR__ . '/../../include/navbar.php'; ?>
@@ -99,19 +162,20 @@ $quartosAtivos = (new QuartoRepository($conn))->buscarQuartosAtivos();
                 </div>
 
                 <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-white border-0 p-4">
+                    <div class="card-header bg-white border-0 p-4 d-flex justify-content-between align-items-center gap-3">
                         <h2 class="h5 mb-0"><i class="bi bi-buildings me-2 text-primary"></i>Quartos cadastrados</h2>
+                        <span class="badge text-bg-secondary"><?= count($quartosAtivos) ?> registros</span>
                     </div>
                     <div class="card-body p-0">
-                        <div class="table-responsive">
+                        <div class="quartos-table-wrapper">
                             <table id="tabelaQuartos" class="table table-hover align-middle mb-0">
                                 <thead class="table-light">
                                     <tr>
                                         <th class="px-2">Nome</th>
                                         <th>Número</th>
                                         <th>Tipo</th>
-                                        <th>Capacidade</th>
-                                        <th>Diária</th>
+                                        <th class="text-center">Capacidade</th>
+                                        <th class="text-end">Diária</th>
                                         <th>Status</th>
                                         <th class="text-end px-4">Ações</th>
                                     </tr>
@@ -131,12 +195,20 @@ $quartosAtivos = (new QuartoRepository($conn))->buscarQuartosAtivos();
                                                 </td>
                                                 <td><?= htmlspecialchars($quarto['numero_quarto'], ENT_QUOTES, 'UTF-8') ?></td>
                                                 <td><?= htmlspecialchars($quarto['tipo_acomodacao'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
-                                                <td><?= htmlspecialchars($quarto['capacidade'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
-                                                 <td><?= htmlspecialchars($quarto['valor_diaria'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
-                                                  <td><?= htmlspecialchars($quarto['status'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
-                                                <td class="text-end px-4">
-                                                    <button class="badge text-bg-danger"><i class="bi bi-trash"></i></button>
-                                                    <button class="badge text-bg-warning"><i class="bi bi-pencil-square"></i></button>
+                                                <td class="text-center"><?= htmlspecialchars($quarto['capacidade'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
+                                                <td class="text-end">
+                                                    R$ <?= number_format((float) ($quarto['valor_diaria'] ?? 0), 2, ',', '.') ?>
+                                                </td>
+                                                <td>
+                                                    <span class="badge text-bg-success">Ativo</span>
+                                                </td>
+                                                <td class="quarto-actions text-end px-4">
+                                                    <button type="button" class="btn btn-sm btn-outline-warning me-1" title="Editar quarto" aria-label="Editar quarto">
+                                                        <i class="bi bi-pencil-square"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-outline-danger" title="Excluir quarto" aria-label="Excluir quarto">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
@@ -156,6 +228,8 @@ $quartosAtivos = (new QuartoRepository($conn))->buscarQuartosAtivos();
             paging: true,
             pageLength: 5,
             lengthMenu: [5, 10, 25, 50],
+            order: [[1, 'asc']],
+            autoWidth: false,
             language: {
                 search: 'Buscar:',
                 lengthMenu: 'Mostrar _MENU_ registros',
