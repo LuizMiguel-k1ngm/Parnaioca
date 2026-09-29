@@ -7,6 +7,13 @@ if (!isset($_SESSION['usuario'])) {
     header('Location: /panaoica/login');
     exit;
 }
+
+require_once __DIR__ . '/../../../config/conn.php';
+require_once __DIR__ . '/../../../Repositories/QuartoRepository.php';
+
+$quartosAtivos = (new QuartoRepository($conn))->buscarQuartosAtivos();
+
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -100,15 +107,41 @@ if (!isset($_SESSION['usuario'])) {
                             <table id="tabelaQuartos" class="table table-hover align-middle mb-0">
                                 <thead class="table-light">
                                     <tr>
-                                        <th class="px-4">Nome</th>
+                                        <th class="px-2">Nome</th>
                                         <th>Número</th>
                                         <th>Tipo</th>
                                         <th>Capacidade</th>
                                         <th>Diária</th>
                                         <th>Status</th>
+                                        <th class="text-end px-4">Ações</th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                    <?php if (empty($quartosAtivos)): ?>
+                                        <tr>
+                                            <td colspan="7" class="text-center text-secondary py-4">
+                                                Nenhum quarto ativo encontrado.
+                                            </td>
+                                        </tr>
+                                    <?php else: ?>
+                                        <?php foreach ($quartosAtivos as $quarto): ?>
+                                            <tr>
+                                                <td class="px-2">
+                                                    <?= htmlspecialchars($quarto['nome'], ENT_QUOTES, 'UTF-8') ?>
+                                                </td>
+                                                <td><?= htmlspecialchars($quarto['numero_quarto'], ENT_QUOTES, 'UTF-8') ?></td>
+                                                <td><?= htmlspecialchars($quarto['tipo_acomodacao'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
+                                                <td><?= htmlspecialchars($quarto['capacidade'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
+                                                 <td><?= htmlspecialchars($quarto['valor_diaria'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
+                                                  <td><?= htmlspecialchars($quarto['status'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
+                                                <td class="text-end px-4">
+                                                    <button class="badge text-bg-danger"><i class="bi bi-trash"></i></button>
+                                                    <button class="badge text-bg-warning"><i class="bi bi-pencil-square"></i></button>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -120,6 +153,7 @@ if (!isset($_SESSION['usuario'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         new DataTable('#tabelaQuartos', {
+            paging: true,
             pageLength: 5,
             lengthMenu: [5, 10, 25, 50],
             language: {

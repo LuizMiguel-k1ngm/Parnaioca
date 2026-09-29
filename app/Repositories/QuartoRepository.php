@@ -14,7 +14,7 @@ class QuartoRepository
 	public function buscarQuartosAtivos(): array
 	{
 		$statement = $this->conn->query(
-			"SELECT id_acomodacao, nome, numero_quarto, capacidade, valor_diaria
+			"SELECT id_acomodacao, nome, numero_quarto, tipo_acomodacao, capacidade, valor_diaria, status
 			 FROM acomodacao
 			 WHERE status = 'ativo'
 			 ORDER BY numero_quarto"
