@@ -90,11 +90,4 @@ class UsuarioRepository
 
 
 
-    public function buscarHospedes(){
-        
-
-    }
-
-
-
 }
