@@ -1,5 +1,14 @@
 <?php
 
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
+if (!isset($_SESSION['usuario'])) {
+    header('Location: /panaoica/login');
+    exit;
+}
+
 require_once __DIR__ . '/../config/conn.php';
 require_once __DIR__ . '/../Models/cliente/index.php';
 require_once __DIR__ . '/../Repositories/UsuarioRepository.php';

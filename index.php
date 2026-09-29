@@ -12,7 +12,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 if (
     in_array($path, ['/inicio', '/cadastro/hospede', '/cadastro/hospedes'], true)
-    && empty($_SESSION['usuario'])
+    && !isset($_SESSION['usuario'])
 ) {
     header('Location: ' . $basePath . '/login');
     exit;
