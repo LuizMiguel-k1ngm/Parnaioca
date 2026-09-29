@@ -9,7 +9,7 @@ if (!isset($_SESSION['usuario'])) {
 }
 
 require_once __DIR__ . '/../../../config/conn.php';
-require_once __DIR__ . '/../../../Repositories/UsuarioRepository.php';
+require_once __DIR__ . '/../../../Repositories/QuartoRepository.php';
 
 $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
 ?>
