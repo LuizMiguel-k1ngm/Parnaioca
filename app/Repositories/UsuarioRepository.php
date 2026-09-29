@@ -22,6 +22,18 @@ class UsuarioRepository
 		return $usuarioEncontrado ?: null;
 	}
 
+	public function buscarClientesAtivos(): array
+	{
+		$statement = $this->conn->query(
+			"SELECT id_cliente, nome, cpf, telefone, email
+			 FROM cliente
+			 WHERE status = 'ativo'
+			 ORDER BY nome"
+		);
+
+		return $statement->fetchAll(PDO::FETCH_ASSOC);
+	}
+
 	public function criarHospede(Hospede $hospede): void
 	{
 		$sql = 'INSERT INTO cliente
@@ -75,4 +87,14 @@ class UsuarioRepository
 			':observacao' => $dados['observacao'],
 		]);
 	}
+
+
+
+    public function buscarHospedes(){
+        
+
+    }
+
+
+
 }

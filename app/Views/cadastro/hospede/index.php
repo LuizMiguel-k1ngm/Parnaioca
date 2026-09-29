@@ -7,6 +7,11 @@ if (!isset($_SESSION['usuario'])) {
     header('Location: /panaoica/login');
     exit;
 }
+
+require_once __DIR__ . '/../../../config/conn.php';
+require_once __DIR__ . '/../../../Repositories/UsuarioRepository.php';
+
+$clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -291,13 +296,13 @@ if (!isset($_SESSION['usuario'])) {
                                 Hóspedes cadastrados
                             </h2>
 
-                            <span class="badge text-bg-secondary">0 registros</span>
+                            <span class="badge text-bg-secondary"><?= count($clientesAtivos) ?> registros</span>
                         </div>
                     </div>
 
                     <div class="card-body p-0">
                         <div class="table-responsive">
-                            <table class="table table-hover align-middle mb-0">
+                            <table id="tabelaHospedes" class="table table-hover align-middle mb-0">
                                 <thead class="table-light">
                                     <tr>
                                         <th class="px-4">Nome</th>
@@ -308,12 +313,27 @@ if (!isset($_SESSION['usuario'])) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td colspan="5" class="text-center text-secondary py-5">
-                                            <i class="bi bi-person-x fs-3 d-block mb-2"></i>
-                                            Nenhum hóspede cadastrado.
-                                        </td>
-                                    </tr>
+                                    <?php if (empty($clientesAtivos)): ?>
+                                        <tr>
+                                            <td colspan="5" class="text-center text-secondary py-4">
+                                                Nenhum hóspede ativo encontrado.
+                                            </td>
+                                        </tr>
+                                    <?php else: ?>
+                                        <?php foreach ($clientesAtivos as $cliente): ?>
+                                            <tr>
+                                                <td class="px-4">
+                                                    <?= htmlspecialchars($cliente['nome'], ENT_QUOTES, 'UTF-8') ?>
+                                                </td>
+                                                <td><?= htmlspecialchars($cliente['cpf'], ENT_QUOTES, 'UTF-8') ?></td>
+                                                <td><?= htmlspecialchars($cliente['telefone'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
+                                                <td><?= htmlspecialchars($cliente['email'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
+                                                <td class="text-end px-4">
+                                                    <span class="badge text-bg-success">Ativo</span>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -327,6 +347,24 @@ if (!isset($_SESSION['usuario'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        new DataTable('#tabelaHospedes', {
+            pageLength: 5,
+            lengthMenu: [5, 10, 25, 50],
+            language: {
+                search: 'Buscar:',
+                lengthMenu: 'Mostrar _MENU_ registros',
+                info: 'Mostrando _START_ a _END_ de _TOTAL_ registros',
+                infoEmpty: 'Nenhum registro encontrado',
+                zeroRecords: 'Nenhum hóspede encontrado',
+                paginate: {
+                    first: 'Primeiro',
+                    last: 'Último',
+                    next: 'Próximo',
+                    previous: 'Anterior'
+                }
+            }
+        });
+
         const sidebarMenu = document.getElementById('sidebarMenu');
 
         const sidebarToggles = [
