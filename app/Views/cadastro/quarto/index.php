@@ -108,11 +108,7 @@ if (!isset($_SESSION['usuario'])) {
                                         <th>Status</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td colspan="6" class="text-center text-secondary py-4">Nenhum quarto cadastrado.</td>
-                                    </tr>
-                                </tbody>
+                                <tbody></tbody>
                             </table>
                         </div>
                     </div>
@@ -131,6 +127,7 @@ if (!isset($_SESSION['usuario'])) {
                 lengthMenu: 'Mostrar _MENU_ registros',
                 info: 'Mostrando _START_ a _END_ de _TOTAL_ registros',
                 infoEmpty: 'Nenhum registro encontrado',
+                emptyTable: 'Nenhum quarto cadastrado.',
                 zeroRecords: 'Nenhum quarto encontrado',
                 paginate: { first: 'Primeiro', last: 'Último', next: 'Próximo', previous: 'Anterior' }
             }
