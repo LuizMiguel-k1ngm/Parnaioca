@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../config/conn.php';
 require_once __DIR__ . '/../Models/cliente/index.php';
+require_once __DIR__ . '/../Repositories/UsuarioRepository.php';
 
 $nome = trim($_POST['nome'] ?? '');
 $cpf = trim($_POST['cpf'] ?? '');
@@ -79,21 +80,24 @@ $observacao = $observacao === '' ? null : $observacao;
 try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    Hospede::criar($conn, [
-        'nome' => $nome,
-        'data_nascimento' => $dataNascimento,
-        'cpf' => $cpf,
-        'email' => $email === '' ? null : $email,
-        'telefone' => $telefone === '' ? null : $telefone,
-        'cep' => $cep,
-        'estado' => $estado === '' ? null : strtoupper($estado),
-        'cidade' => $cidade === '' ? null : $cidade,
-        'rg' => $rg,
-        'endereco' => $endereco,
-        'numero' => $numero,
-        'pais' => $pais,
-        'observacao' => $observacao,
-    ]);
+    $hospede = new Hospede(
+        $nome,
+        $dataNascimento,
+        $cpf,
+        $email === '' ? null : $email,
+        $telefone === '' ? null : $telefone,
+        $cep,
+        $estado === '' ? null : strtoupper($estado),
+        $cidade === '' ? null : $cidade,
+        $rg,
+        $endereco,
+        $numero,
+        $pais,
+        $observacao,
+    );
+
+    $repository = new UsuarioRepository($conn);
+    $repository->criarHospede($hospede);
 } catch (PDOException $exception) {
     $_SESSION['hospede_erros'] = $exception->getCode() === '23000'
         ? ['Já existe um hóspede cadastrado com este CPF.']

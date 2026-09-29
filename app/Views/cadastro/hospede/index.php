@@ -26,8 +26,8 @@
                 //persistencia de dados
                 $hospedeErros = $_SESSION['hospede_erros'] ?? [];
                 $hospedeNome = $_SESSION['hospede_nome'] ?? '';
-                $hospedeCpf = $_SESSION['hospede_cpf'];
-                $hospedeRg = $_SESSION['hospede_rg'];
+                $hospedeCpf = $_SESSION['hospede_cpf'] ?? '';
+                $hospedeRg = $_SESSION['hospede_rg'] ?? '';
 
                 $hospedeSucesso = isset($_GET['sucesso']);
 
