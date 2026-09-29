@@ -15,19 +15,19 @@
 					<div class="row g-3">
 						<div class="col-12">
 							<label for="editar_nome" class="form-label">Nome da acomodação</label>
-							<input type="text" class="form-control" id="editar_nome" name="nome" maxlength="250" required>
+							<input type="text" class="form-control" id="editar_nome" name="nome" maxlength="250">
 						</div>
 						<div class="col-6">
 							<label for="editar_numero_quarto" class="form-label">Número</label>
-							<input type="number" class="form-control" id="editar_numero_quarto" name="numero_quarto" min="1" required>
+							<input type="number" class="form-control" id="editar_numero_quarto" name="numero_quarto" min="1"  >
 						</div>
 						<div class="col-6">
 							<label for="editar_capacidade" class="form-label">Capacidade</label>
-							<input type="number" class="form-control" id="editar_capacidade" name="capacidade" min="1" required>
+							<input type="number" class="form-control" id="editar_capacidade" name="capacidade" min="1">
 						</div>
 						<div class="col-12">
 							<label for="editar_tipo_acomodacao" class="form-label">Tipo de acomodação</label>
-							<select class="form-select" id="editar_tipo_acomodacao" name="tipo_acomodacao" required>
+							<select class="form-select" id="editar_tipo_acomodacao" name="tipo_acomodacao" >
 								<option value="Quarto">Quarto</option>
 								<option value="Suíte">Suíte</option>
 								<option value="Chalé">Chalé</option>
