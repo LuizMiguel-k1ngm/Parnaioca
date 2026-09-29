@@ -10,7 +10,10 @@ $path = str_replace($basePath, '', $requestPath);
 $path = rtrim($path, '/') ?: '/';
 $method = $_SERVER['REQUEST_METHOD'];
 
-if ($path === '/inicio' && empty($_SESSION['usuario'])) {
+if (
+    in_array($path, ['/inicio', '/cadastro/hospede', '/cadastro/hospedes'], true)
+    && empty($_SESSION['usuario'])
+) {
     header('Location: ' . $basePath . '/login');
     exit;
 }

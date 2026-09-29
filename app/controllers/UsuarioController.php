@@ -2,6 +2,7 @@
 
 session_start();
 require_once dirname(__DIR__) . '/Config/conn.php';
+require_once dirname(__DIR__) . '/Services/UsuarioService.php';
 
 $loginUrl = '/panaoica/login';
 
@@ -18,21 +19,15 @@ if ($usuario === '' || $senha === '') {
     exit;
 }
 
-
 try {
-    $stmt = $conn->prepare(
-        'SELECT id_usuario, usuario, senha_hash, id_funcionario
-         FROM usuario_login
-         WHERE usuario = :usuario AND status = "ativo" '
-    );
-    $stmt->execute(['usuario' => $usuario]);
-    $usuarioEncontrado = $stmt->fetch(PDO::FETCH_ASSOC);
+    $usuarioService = new UsuarioService(new UsuarioRepository($conn));
+    $usuarioEncontrado = $usuarioService->autenticar($usuario, $senha);
 } catch (PDOException $exception) {
     header('Location: ' . $loginUrl . '?msg=' . urlencode('Não foi possível realizar o login.'));
     exit;
 }
 
-if (!$usuarioEncontrado || !password_verify($senha, $usuarioEncontrado['senha_hash'])) {
+if (!$usuarioEncontrado) {
     header('Location: ' . $loginUrl . '?msg=' . urlencode('Usuário ou senha incorretos.'));
     exit;
 }

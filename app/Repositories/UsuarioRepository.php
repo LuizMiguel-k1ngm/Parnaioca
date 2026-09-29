@@ -8,6 +8,20 @@ class UsuarioRepository
 	{
 	}
 
+	public function buscarAtivoPorUsuario(string $usuario): ?array
+	{
+		$statement = $this->conn->prepare(
+			'SELECT id_usuario, usuario, senha_hash, id_funcionario
+			 FROM usuario_login
+			 WHERE usuario = :usuario AND status = "ativo"'
+		);
+		$statement->execute(['usuario' => $usuario]);
+
+		$usuarioEncontrado = $statement->fetch(PDO::FETCH_ASSOC);
+
+		return $usuarioEncontrado ?: null;
+	}
+
 	public function criarHospede(Hospede $hospede): void
 	{
 		$sql = 'INSERT INTO cliente
