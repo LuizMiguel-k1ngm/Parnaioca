@@ -2,10 +2,13 @@
 
 require_once __DIR__ . '/../Models/quarto/index.php';
 
-class UsuarioRepository
+class QuartoRepository
 {
-	public function __construct(private PDO $conn)
+	private PDO $conn;
+
+	public function __construct(PDO $conn)
 	{
+		$this->conn = $conn;
 	}
 
 	public function buscarQuartosAtivos(): array
