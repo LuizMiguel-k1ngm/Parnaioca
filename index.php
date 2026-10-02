@@ -10,10 +10,9 @@ $path = str_replace($basePath, '', $requestPath);
 $path = rtrim($path, '/') ?: '/';
 $method = $_SERVER['REQUEST_METHOD'];
 
-if (
-    in_array($path, ['/inicio', '/cadastro/hospede', '/cadastro/hospedes'], true)
-    && !isset($_SESSION['usuario'])
-) {
+$rotaProtegida = $path === '/inicio' || str_starts_with($path, '/cadastro') || str_starts_with($path, '/relatorios');
+
+if ($rotaProtegida && !isset($_SESSION['usuario'])) {
     header('Location: ' . $basePath . '/login');
     exit;
 }
