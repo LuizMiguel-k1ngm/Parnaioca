@@ -1,0 +1,385 @@
+<?php
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
+if (!isset($_SESSION['usuario'])) {
+    header('Location: /panaoica/login');
+    exit;
+}
+
+require_once __DIR__ . '/../../../config/conn.php';
+require_once __DIR__ . '/../../../Repositories/UsuarioRepository.php';
+
+$clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Consumo | Parnaioca</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="/panaoica/app/Assets/css/style.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/v/dt/dt-3.1.1/datatables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/v/dt/dt-3.1.1/datatables.min.js"></script>
+</head>
+
+<body class="bg-light">
+    <?php require __DIR__ . '/../../include/navbar.php'; ?>
+
+    <div class="d-flex">
+        <?php require __DIR__ . '/../../include/sidebar.php'; ?>
+
+        <main class="main-content flex-grow-1 p-3 p-md-4">
+            <div class="container-fluid">
+
+                <?php
+                //persistencia de dados
+                $hospedeErros = $_SESSION['hospede_erros'] ?? [];
+                $hospedeNome = $_SESSION['hospede_nome'] ?? '';
+                $hospedeCpf = $_SESSION['hospede_cpf'] ?? '';
+                $hospedeRg = $_SESSION['hospede_rg'] ?? '';
+
+                $hospedeSucesso = isset($_GET['sucesso']);
+
+                //parametros da persistencia
+                unset($_SESSION['hospede_erros']);
+                unset($_SESSION['hospede_nome']);
+                unset($_SESSION['hospede_cpf']);
+                ?>
+
+                <?php if ($hospedeSucesso): ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        Hóspede cadastrado com sucesso.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (!empty($hospedeErros)): ?>
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Confira os dados informados:</strong>
+                        <ul class="mb-0 mt-2">
+                            <?php foreach ($hospedeErros as $erro): ?>
+                                <li><?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+                    <div>
+                        <h1 class="h3 mb-1">Cadastro de Consumo</h1>
+                        <p class="text-secondary mb-0">
+                            Registre e consulte o consumo dos hospedes.
+                        </p>
+                    </div>
+
+                    <a href="/panaoica/inicio" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-1"></i>
+                        Voltar
+                    </a>
+                </div>
+
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-white border-0 p-4 pb-0">
+                        <h2 class="h5 mb-1">
+                            <i class="bi bi-basket3 me-2 text-primary"></i>
+                            Novo consumo
+                        </h2>
+                        <p class="text-secondary mb-0">
+                            Preencha os dados abaixo para cadastrar consumo.
+                        </p>
+                    </div>
+
+                    <div class="card-body p-4">
+                        <form method="post" action="/panaoica/cadastro/hospedes">
+                            <div class="row g-3">
+                                <div class="col-12 col-md-8">
+                                    <label for="nome" class="form-label">Nome completo</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="nome"
+                                        name="nome"
+                                        value="<?= htmlspecialchars($hospedeNome, ENT_QUOTES, 'UTF-8') ?>"
+                                        placeholder="Digite o nome completo"
+                                        required>
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <label for="cpf" class="form-label">CPF</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="cpf"
+                                        name="cpf"
+                                        value="<?= htmlspecialchars($hospedeCpf, ENT_QUOTES, 'UTF-8') ?>"
+                                        placeholder="000.000.000-00"
+                                        required>
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <label for="rg" class="form-label">RG</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="rg"
+                                        name="rg"
+                                        value="<?= htmlspecialchars($hospedeRg, ENT_QUOTES, 'UTF-8') ?>"
+                                        placeholder="Digite o RG">
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <label for="data_nascimento" class="form-label">
+                                        Data de nascimento
+                                    </label>
+                                    <input
+                                        type="date"
+                                        class="form-control"
+                                        id="data_nascimento"
+                                        name="data_nascimento">
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <label for="telefone" class="form-label">Telefone</label>
+                                    <input
+                                        type="tel"
+                                        class="form-control"
+                                        id="telefone"
+                                        name="telefone"
+                                        placeholder="(00) 00000-0000"
+                                        required>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label for="email" class="form-label">E-mail</label>
+                                    <input
+                                        type="email"
+                                        class="form-control"
+                                        id="email"
+                                        name="email"
+                                        placeholder="hospede@email.com">
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label for="cep" class="form-label">CEP</label>
+                                    <div class="input-group">
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="cep"
+                                            name="cep"
+                                            inputmode="numeric"
+                                            maxlength="9"
+                                            placeholder="00000-000">
+                                        <button
+                                            type="button"
+                                            class="btn btn-outline-primary"
+                                            id="buscarCep"
+                                            title="Buscar endereço pelo CEP">
+                                            <i class="bi bi-search me-1" aria-hidden="true"></i>
+                                            Buscar CEP
+                                        </button>
+                                    </div>
+                                    <div id="cepFeedback" class="form-text" role="status"></div>
+                                </div>
+
+                                <div class="col-12 col-md-8">
+                                    <label for="endereco" class="form-label">Endereço</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="endereco"
+                                        name="endereco"
+                                        placeholder="Rua, avenida ou estrada">
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <label for="numero" class="form-label">Número</label>
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        id="numero"
+                                        name="numero"
+                                        placeholder="Número">
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label for="cidade" class="form-label">Cidade</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="cidade"
+                                        name="cidade"
+                                        placeholder="Digite a cidade">
+                                </div>
+
+                                <div class="col-12 col-md-3">
+                                    <label for="estado" class="form-label">Estado</label>
+                                    <select class="form-select" id="estado" name="estado">
+                                        <option value="">Selecione</option>
+                                        <option value="AC">AC</option>
+                                        <option value="AL">AL</option>
+                                        <option value="AP">AP</option>
+                                        <option value="AM">AM</option>
+                                        <option value="BA">BA</option>
+                                        <option value="CE">CE</option>
+                                        <option value="DF">DF</option>
+                                        <option value="ES">ES</option>
+                                        <option value="GO">GO</option>
+                                        <option value="MA">MA</option>
+                                        <option value="MT">MT</option>
+                                        <option value="MS">MS</option>
+                                        <option value="MG">MG</option>
+                                        <option value="PA">PA</option>
+                                        <option value="PB">PB</option>
+                                        <option value="PR">PR</option>
+                                        <option value="PE">PE</option>
+                                        <option value="PI">PI</option>
+                                        <option value="RJ">RJ</option>
+                                        <option value="RN">RN</option>
+                                        <option value="RS">RS</option>
+                                        <option value="RO">RO</option>
+                                        <option value="RR">RR</option>
+                                        <option value="SC">SC</option>
+                                        <option value="SP">SP</option>
+                                        <option value="SE">SE</option>
+                                        <option value="TO">TO</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-3">
+                                    <label for="pais" class="form-label">País</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="pais"
+                                        name="pais"
+                                        value="Brasil">
+                                </div>
+
+                          
+                            <div class="d-flex justify-content-end gap-2 mt-4">
+                                <button type="reset" class="btn btn-outline-secondary">
+                                    <i class="bi bi-arrow-counterclockwise me-1"></i>
+                                    Limpar
+                                </button>
+
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-check-lg me-1"></i>
+                                    Cadastrar hóspede
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white border-0 p-4">
+                        <div class="d-flex justify-content-between align-items-center gap-3">
+                            <h2 class="h5 mb-0">
+                                <i class="bi bi-people me-2 text-primary"></i>
+                                Hóspedes cadastrados
+                            </h2>
+
+                            <span class="badge text-bg-secondary"><?= count($clientesAtivos) ?> registros</span>
+                        </div>
+                    </div>
+
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table id="tabelaHospedes" class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="px-4">Nome</th>
+                                        <th>CPF</th>
+                                        <th>Telefone</th>
+                                        <th>E-mail</th>
+                                        <th class="text-end px-4">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if (empty($clientesAtivos)): ?>
+                                        <tr>
+                                            <td colspan="5" class="text-center text-secondary py-4">
+                                                Nenhum hóspede ativo encontrado.
+                                            </td>
+                                        </tr>
+                                    <?php else: ?>
+                                        <?php foreach ($clientesAtivos as $cliente): ?>
+                                            <tr>
+                                                <td class="px-4">
+                                                    <?= htmlspecialchars($cliente['nome'], ENT_QUOTES, 'UTF-8') ?>
+                                                </td>
+                                                <td><?= htmlspecialchars($cliente['cpf'], ENT_QUOTES, 'UTF-8') ?></td>
+                                                <td><?= htmlspecialchars($cliente['telefone'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
+                                                <td><?= htmlspecialchars($cliente['email'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
+                                                <td class="text-end px-4">
+                                                    <span class="badge text-bg-success">Ativo</span>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        new DataTable('#tabelaHospedes', {
+            pageLength: 5,
+            lengthMenu: [5, 10, 25, 50],
+            language: {
+                search: 'Buscar:',
+                lengthMenu: 'Mostrar _MENU_ registros',
+                info: 'Mostrando _START_ a _END_ de _TOTAL_ registros',
+                infoEmpty: 'Nenhum registro encontrado',
+                zeroRecords: 'Nenhum hóspede encontrado',
+                paginate: {
+                    first: 'Primeiro',
+                    last: 'Último',
+                    next: 'Próximo',
+                    previous: 'Anterior'
+                }
+            }
+        });
+
+        const sidebarMenu = document.getElementById('sidebarMenu');
+
+        const sidebarToggles = [
+            document.getElementById('sidebarToggle'),
+            document.getElementById('navbarSidebarToggle')
+        ].filter(Boolean);
+
+        sidebarToggles.forEach((sidebarToggle) => {
+            sidebarToggle.addEventListener('click', () => {
+                const isCollapsed = sidebarMenu.classList.toggle('sidebar-collapsed');
+
+                sidebarToggles.forEach((toggle) => {
+                    toggle.setAttribute('aria-expanded', String(!isCollapsed));
+
+                    const icon = toggle.querySelector('i');
+
+                    if (icon) {
+                        icon.classList.toggle('bi-chevron-left', !isCollapsed);
+                        icon.classList.toggle('bi-chevron-right', isCollapsed);
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="/panaoica/app/Assets/javaScript/validarCep.js"></script>
+</body>
+
+</html>

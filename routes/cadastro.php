@@ -10,6 +10,7 @@ return [
     'GET /cadastro/frigobar' => __DIR__ . '/../app/Views/cadastro/frigobar/index.php',
     'GET /cadastro/movimentacao' => __DIR__ . '/../app/Views/cadastro/movimentacoes/index.php',
     'GET /cadastro/produto' => __DIR__ . '/../app/Views/cadastro/produtos/index.php',
+    'GET /cadastro/consumo' => __DIR__ . '/../app/Views/cadastro/consumo/index.php',
     
     //Rotas para o controller
     'POST /cadastro/hospedes' => __DIR__ . '/../app/Controllers/HospedeController.php',
