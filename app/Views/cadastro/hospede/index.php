@@ -60,13 +60,14 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                 <?php endif; ?>
 
                 <?php if (!empty($hospedeErros)): ?>
-                    <div class="alert alert-danger" role="alert">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <strong>Confira os dados informados:</strong>
                         <ul class="mb-0 mt-2">
                             <?php foreach ($hospedeErros as $erro): ?>
                                 <li><?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?></li>
                             <?php endforeach; ?>
                         </ul>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
                     </div>
                 <?php endif; ?>
 
@@ -353,6 +354,12 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        document.querySelectorAll('[role="alert"]').forEach((alert) => {
+            window.setTimeout(() => {
+                bootstrap.Alert.getOrCreateInstance(alert).close();
+            }, 3000);
+        });
+
         new DataTable('#tabelaHospedes', {
             pageLength: 5,
             lengthMenu: [5, 10, 25, 50],
