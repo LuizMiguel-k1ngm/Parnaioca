@@ -105,6 +105,7 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                                         class="form-control"
                                         id="nome"
                                         name="nome"
+                                        pattern = "[A-Za-zA-ÿ\s]{3,}"
                                         value="<?= htmlspecialchars($hospedeNome, ENT_QUOTES, 'UTF-8') ?>"
                                         placeholder="Digite o nome completo"
                                         required>

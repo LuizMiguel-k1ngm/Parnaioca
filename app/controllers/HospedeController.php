@@ -33,11 +33,16 @@ $_SESSION['hospede_nome'] = $nome;
 $_SESSION['hospede_cpf'] = $cpf;
 $_SESSION['hospede_rg'] = $rg; 
 
+// pattern de nome
+$padrão = "/^[\p{L}\s]{3,50}$/u";
+
 
 $erros = [];
 
 if ($nome === '') {
     $erros[] = 'O nome é obrigatório.';
+}elseif( preg_match($padrão, $nome) !== 1){
+    $erro[] = 'Nome inválido';
 }
 
 if ($cpf === '') {
