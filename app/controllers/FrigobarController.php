@@ -10,6 +10,7 @@ if (!isset($_SESSION['usuario'])) {
 }
 
 require_once __DIR__ . '/../config/conn.php';
+require_once __DIR__ . '/../Models/frigobar/index.php';
 require_once __DIR__ . '/../Repositories/FrigobarRepository.php';
 
 $idAcomodacao = filter_var($_POST['id_acomodacao'] ?? null, FILTER_VALIDATE_INT);
@@ -41,7 +42,13 @@ if (!empty($erros)) {
 
 try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    (new \FrigobarRepository($conn))->criarFrigobar((int) $idAcomodacao, (int) $idStatus, $numeroIdentificacao);
+    $frigobar = new Frigobar(
+        (int) $idAcomodacao,
+        (int) $idStatus,
+        $numeroIdentificacao ?: null
+    );
+
+    (new FrigobarRepository($conn))->criarFrigobar($frigobar);
 } catch (PDOException $exception) {
     $_SESSION['frigobar_erros'] = $exception->getCode() === '23000'
         ? ['A acomodação já possui um frigobar ou a identificação informada já está em uso.']

@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../Models/frigobar/index.php';
+
 class FrigobarRepository
 {
     private PDO $conn;
@@ -47,17 +49,18 @@ class FrigobarRepository
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function criarFrigobar(int $idAcomodacao, int $idStatus, ?string $numeroIdentificacao): void
+    public function criarFrigobar(Frigobar $frigobar): void
     {
         $statement = $this->conn->prepare(
             'INSERT INTO frigobar (id_acomodacao, id_status_frigobar, numero_identificacao)
              VALUES (:id_acomodacao, :id_status_frigobar, :numero_identificacao)'
         );
 
+        $dados = $frigobar->dados();
         $statement->execute([
-            ':id_acomodacao' => $idAcomodacao,
-            ':id_status_frigobar' => $idStatus,
-            ':numero_identificacao' => $numeroIdentificacao ?: null,
+            ':id_acomodacao' => $dados['id_acomodacao'],
+            ':id_status_frigobar' => $dados['id_status_frigobar'],
+            ':numero_identificacao' => $dados['numero_identificacao'],
         ]);
     }
 }
