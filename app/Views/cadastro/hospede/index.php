@@ -105,7 +105,7 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                                         class="form-control"
                                         id="nome"
                                         name="nome"
-                                        pattern = "[A-Za-zA-ÿ\s]{3,}"
+                                        pattern="[A-Za-zA-ÿ\s]{3,}"
                                         value="<?= htmlspecialchars($hospedeNome, ENT_QUOTES, 'UTF-8') ?>"
                                         placeholder="Digite o nome completo"
                                         required>
@@ -310,7 +310,7 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                                         <th>CPF</th>
                                         <th>Telefone</th>
                                         <th>E-mail</th>
-                                        <th class="text-end px-4">Ações</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -329,8 +329,11 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                                                 <td><?= htmlspecialchars($cliente['cpf'], ENT_QUOTES, 'UTF-8') ?></td>
                                                 <td><?= htmlspecialchars($cliente['telefone'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
                                                 <td><?= htmlspecialchars($cliente['email'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
-                                                <td class="text-end px-4">
-                                                    <span class="badge text-bg-success">Ativo</span>
+                                                <?php $status = strtolower((string) ($cliente['status'] ?? '')); ?>
+                                                <td>
+                                                    <span class="badge <?= $status === 'ativo' ? 'text-bg-success' : 'text-bg-danger' ?>">
+                                                        <?= htmlspecialchars(ucfirst($status ?: '-'), ENT_QUOTES, 'UTF-8') ?>
+                                                    </span>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

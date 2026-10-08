@@ -11,7 +11,7 @@ class UsuarioRepository
 	public function buscarAtivoPorUsuario(string $usuario): ?array
 	{
 		$statement = $this->conn->prepare(
-			'SELECT id_usuario, usuario, senha_hash, id_funcionario
+			'SELECT id_usuario, usuario, senha_hash, id_funcionario, status
 			 FROM usuario_login
 			 WHERE usuario = :usuario AND status = "ativo"'
 		);
@@ -25,9 +25,8 @@ class UsuarioRepository
 	public function buscarClientesAtivos(): array
 	{
 		$statement = $this->conn->query(
-			"SELECT id_cliente, nome, cpf, telefone, email
+			"SELECT id_cliente, nome, cpf, telefone, email, status
 			 FROM cliente
-			 WHERE status = 'ativo'
 			 ORDER BY nome"
 		);
 
