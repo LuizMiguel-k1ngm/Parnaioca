@@ -190,7 +190,7 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                                 </div>
 
                                 <div class="col-12 col-md-8">
-                                    <label for="endereco" class="form-label">Endereço</label>
+                                    <label for="endereco" class="form-label">Endereço <span class="text-danger">*</span> </label>
                                     <input
                                         type="text"
                                         class="form-control"
@@ -205,6 +205,7 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                                         type="number"
                                         class="form-control"
                                         id="numero"
+                                        min = 0
                                         name="numero"
                                         placeholder="Número">
                                 </div>
