@@ -99,7 +99,7 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                         <form method="post" action="/panaoica/cadastro/hospedes">
                             <div class="row g-3">
                                 <div class="col-12 col-md-8">
-                                    <label for="nome" class="form-label">Nome completo</label>
+                                    <label for="nome" class="form-label">Nome completo <span class="text-danger">*</span></label>
                                     <input
                                         type="text"
                                         class="form-control"
@@ -112,7 +112,7 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                                 </div>
 
                                 <div class="col-12 col-md-4">
-                                    <label for="cpf" class="form-label">CPF</label>
+                                    <label for="cpf" class="form-label">CPF <span class="text-danger">*</span></label>
                                     <input
                                         type="text"
                                         class="form-control"
@@ -136,17 +136,18 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
 
                                 <div class="col-12 col-md-4">
                                     <label for="data_nascimento" class="form-label">
-                                        Data de nascimento
+                                        Data de nascimento <span class="text-danger">*</span>
                                     </label>
                                     <input
                                         type="date"
                                         class="form-control"
                                         id="data_nascimento"
-                                        name="data_nascimento">
+                                        name="data_nascimento"
+                                        required>
                                 </div>
 
                                 <div class="col-12 col-md-4">
-                                    <label for="telefone" class="form-label">Telefone</label>
+                                    <label for="telefone" class="form-label">Telefone <span class="text-danger">*</span></label>
                                     <input
                                         type="tel"
                                         class="form-control"
@@ -190,7 +191,7 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                                 </div>
 
                                 <div class="col-12 col-md-8">
-                                    <label for="endereco" class="form-label">Endereço <span class="text-danger">*</span> </label>
+                                    <label for="endereco" class="form-label">Endereço</label>
                                     <input
                                         type="text"
                                         class="form-control"
