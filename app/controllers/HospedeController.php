@@ -33,6 +33,13 @@ $_SESSION['hospede_nome'] = $nome;
 $_SESSION['hospede_cpf'] = $cpf;
 $_SESSION['hospede_rg'] = $rg;
 $_SESSION['hospede_telefone'] = $telefone; 
+$_SESSION['hospede_cep'] = $cep;
+
+$_SESSION['hospede_endereco'] = $endereco;
+$_SESSION['hospede_numero'] = $numero;
+$_SESSION['hospede_cidade'] = $cidade;
+$_SESSION['hospede_estado'] = $estado;
+$_SESSION['hospede_pais'] = $pais;
 
 // pattern de nome
 $padrão = "/^[\p{L}\s]{3,50}$/u";

@@ -44,6 +44,12 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                 $hospedeCpf = $_SESSION['hospede_cpf'] ?? '';
                 $hospedeRg = $_SESSION['hospede_rg'] ?? '';
                 $hospedeTelefone = $_SESSION['hospede_telefone'] ?? '';
+                $hospedeCep = $_SESSION['hospede_cep'] ?? '';
+                $hospedeEndereco = $_SESSION['hospede_endereco'] ?? '';
+                $hospedeNumero = $_SESSION['hospede_numero'] ?? '';
+                $hospedeCidade = $_SESSION['hospede_cidade'] ?? '';
+                $hospedeEstado = $_SESSION['hospede_estado'] ?? '';
+                $hospedePais = $_SESSION['hospede_pais'] ?? '';
 
                 $hospedeSucesso = isset($_GET['sucesso']);
 
@@ -181,11 +187,13 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                                             name="cep"
                                             inputmode="numeric"
                                             maxlength="9"
+                                            value="<?= htmlspecialchars($hospedeCep, ENT_QUOTES, 'UTF-8') ?>"
                                             placeholder="00000-000">
                                         <button
                                             type="button"
                                             class="btn btn-outline-primary"
                                             id="buscarCep"
+                                            value="<?= htmlspecialchars($hospedeCep, ENT_QUOTES, 'UTF-8') ?>"
                                             title="Buscar endereço pelo CEP">
                                             <i class="bi bi-search me-1" aria-hidden="true"></i>
                                             Buscar CEP
@@ -201,6 +209,7 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                                         class="form-control"
                                         id="endereco"
                                         name="endereco"
+                                        value="<?= htmlspecialchars($hospedeEndereco, ENT_QUOTES, 'UTF-8') ?>"
                                         placeholder="Rua, avenida ou estrada">
                                 </div>
 
@@ -212,6 +221,7 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                                         id="numero"
                                         min = 0
                                         name="numero"
+                                        value="<?= htmlspecialchars($hospedeNumero, ENT_QUOTES, 'UTF-8') ?>"
                                         placeholder="Número">
                                 </div>
 
@@ -222,6 +232,7 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                                         class="form-control"
                                         id="cidade"
                                         name="cidade"
+                                        value="<?= htmlspecialchars($hospedeCidade, ENT_QUOTES, 'UTF-8') ?>"
                                         placeholder="Digite a cidade">
                                 </div>
 
