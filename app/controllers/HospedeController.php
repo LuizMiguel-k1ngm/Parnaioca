@@ -31,7 +31,8 @@ $observacao = trim($_POST['observacoes'] ?? '');
 
 $_SESSION['hospede_nome'] = $nome;
 $_SESSION['hospede_cpf'] = $cpf;
-$_SESSION['hospede_rg'] = $rg; 
+$_SESSION['hospede_rg'] = $rg;
+$_SESSION['hospede_telefone'] = $telefone; 
 
 // pattern de nome
 $padrão = "/^[\p{L}\s]{3,50}$/u";

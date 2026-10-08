@@ -43,6 +43,7 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                 $hospedeNome = $_SESSION['hospede_nome'] ?? '';
                 $hospedeCpf = $_SESSION['hospede_cpf'] ?? '';
                 $hospedeRg = $_SESSION['hospede_rg'] ?? '';
+                $hospedeTelefone = $_SESSION['hospede_telefone'] ?? '';
 
                 $hospedeSucesso = isset($_GET['sucesso']);
 
@@ -50,6 +51,7 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                 unset($_SESSION['hospede_erros']);
                 unset($_SESSION['hospede_nome']);
                 unset($_SESSION['hospede_cpf']);
+                unset($_SESSION['hospede_telefone']);
                 ?>
 
                 <?php if ($hospedeSucesso): ?>
@@ -154,6 +156,7 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                                         class="form-control"
                                         id="telefone"
                                         name="telefone"
+                                        value="<?= htmlspecialchars($hospedeTelefone, ENT_QUOTES, 'UTF-8') ?>"
                                         placeholder="(00) 00000-0000"
                                         required>
                                 </div>
