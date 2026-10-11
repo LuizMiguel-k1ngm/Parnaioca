@@ -1,12 +1,5 @@
 <?php
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-
-if (!isset($_SESSION['usuario'])) {
-    header('Location: /panaoica/login');
-    exit;
-}
+require_once __DIR__ . '/../../../config/seguranca.php';
 
 require_once __DIR__ . '/../../../config/conn.php';
 require_once __DIR__ . '/../../../Repositories/UsuarioRepository.php';
@@ -61,22 +54,22 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                 ?>
 
                 <?php if ($hospedeSucesso): ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Hóspede cadastrado com sucesso.
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
-                    </div>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Hóspede cadastrado com sucesso.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                </div>
                 <?php endif; ?>
 
                 <?php if (!empty($hospedeErros)): ?>
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>Confira os dados informados:</strong>
-                        <ul class="mb-0 mt-2">
-                            <?php foreach ($hospedeErros as $erro): ?>
-                                <li><?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
-                    </div>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Confira os dados informados:</strong>
+                    <ul class="mb-0 mt-2">
+                        <?php foreach ($hospedeErros as $erro): ?>
+                        <li><?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                </div>
                 <?php endif; ?>
 
                 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
@@ -108,37 +101,24 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                         <form method="post" action="/panaoica/cadastro/hospedes">
                             <div class="row g-3">
                                 <div class="col-12 col-md-8">
-                                    <label for="nome" class="form-label">Nome completo <span class="text-danger">*</span></label>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        id="nome"
-                                        name="nome"
+                                    <label for="nome" class="form-label">Nome completo <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="nome" name="nome"
                                         pattern="[A-Za-zA-ÿ\s]{3,}"
                                         value="<?= htmlspecialchars($hospedeNome, ENT_QUOTES, 'UTF-8') ?>"
-                                        placeholder="Digite o nome completo"
-                                        required>
+                                        placeholder="Digite o nome completo" required>
                                 </div>
 
                                 <div class="col-12 col-md-4">
                                     <label for="cpf" class="form-label">CPF <span class="text-danger">*</span></label>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        id="cpf"
-                                        name="cpf"
+                                    <input type="text" class="form-control" id="cpf" name="cpf"
                                         value="<?= htmlspecialchars($hospedeCpf, ENT_QUOTES, 'UTF-8') ?>"
-                                        placeholder="000.000.000-00"
-                                        required>
+                                        placeholder="000.000.000-00" required>
                                 </div>
 
                                 <div class="col-12 col-md-4">
                                     <label for="rg" class="form-label">RG</label>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        id="rg"
-                                        name="rg"
+                                    <input type="text" class="form-control" id="rg" name="rg"
                                         value="<?= htmlspecialchars($hospedeRg, ENT_QUOTES, 'UTF-8') ?>"
                                         placeholder="Digite o RG">
                                 </div>
@@ -147,52 +127,32 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                                     <label for="data_nascimento" class="form-label">
                                         Data de nascimento <span class="text-danger">*</span>
                                     </label>
-                                    <input
-                                        type="date"
-                                        class="form-control"
-                                        id="data_nascimento"
-                                        name="data_nascimento"
+                                    <input type="date" class="form-control" id="data_nascimento" name="data_nascimento"
                                         required>
                                 </div>
 
                                 <div class="col-12 col-md-4">
-                                    <label for="telefone" class="form-label">Telefone <span class="text-danger">*</span></label>
-                                    <input
-                                        type="tel"
-                                        class="form-control"
-                                        id="telefone"
-                                        name="telefone"
+                                    <label for="telefone" class="form-label">Telefone <span
+                                            class="text-danger">*</span></label>
+                                    <input type="tel" class="form-control" id="telefone" name="telefone"
                                         value="<?= htmlspecialchars($hospedeTelefone, ENT_QUOTES, 'UTF-8') ?>"
-                                        placeholder="(00) 00000-0000"
-                                        required>
+                                        placeholder="(00) 00000-0000" required>
                                 </div>
 
                                 <div class="col-12 col-md-6">
                                     <label for="email" class="form-label">E-mail</label>
-                                    <input
-                                        type="email"
-                                        class="form-control"
-                                        id="email"
-                                        name="email"
+                                    <input type="email" class="form-control" id="email" name="email"
                                         placeholder="hospede@email.com">
                                 </div>
 
                                 <div class="col-12 col-md-6">
                                     <label for="cep" class="form-label">CEP</label>
                                     <div class="input-group">
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="cep"
-                                            name="cep"
-                                            inputmode="numeric"
+                                        <input type="text" class="form-control" id="cep" name="cep" inputmode="numeric"
                                             maxlength="9"
                                             value="<?= htmlspecialchars($hospedeCep, ENT_QUOTES, 'UTF-8') ?>"
                                             placeholder="00000-000">
-                                        <button
-                                            type="button"
-                                            class="btn btn-outline-primary"
-                                            id="buscarCep"
+                                        <button type="button" class="btn btn-outline-primary" id="buscarCep"
                                             value="<?= htmlspecialchars($hospedeCep, ENT_QUOTES, 'UTF-8') ?>"
                                             title="Buscar endereço pelo CEP">
                                             <i class="bi bi-search me-1" aria-hidden="true"></i>
@@ -204,34 +164,21 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
 
                                 <div class="col-12 col-md-8">
                                     <label for="endereco" class="form-label">Endereço</label>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        id="endereco"
-                                        name="endereco"
+                                    <input type="text" class="form-control" id="endereco" name="endereco"
                                         value="<?= htmlspecialchars($hospedeEndereco, ENT_QUOTES, 'UTF-8') ?>"
                                         placeholder="Rua, avenida ou estrada">
                                 </div>
 
                                 <div class="col-12 col-md-4">
                                     <label for="numero" class="form-label">Número</label>
-                                    <input
-                                        type="number"
-                                        class="form-control"
-                                        id="numero"
-                                        min = 0
-                                        name="numero"
+                                    <input type="number" class="form-control" id="numero" min=0 name="numero"
                                         value="<?= htmlspecialchars($hospedeNumero, ENT_QUOTES, 'UTF-8') ?>"
                                         placeholder="Número">
                                 </div>
 
                                 <div class="col-12 col-md-6">
                                     <label for="cidade" class="form-label">Cidade</label>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        id="cidade"
-                                        name="cidade"
+                                    <input type="text" class="form-control" id="cidade" name="cidade"
                                         value="<?= htmlspecialchars($hospedeCidade, ENT_QUOTES, 'UTF-8') ?>"
                                         placeholder="Digite a cidade">
                                 </div>
@@ -272,21 +219,12 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
 
                                 <div class="col-12 col-md-3">
                                     <label for="pais" class="form-label">País</label>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        id="pais"
-                                        name="pais"
-                                        value="Brasil">
+                                    <input type="text" class="form-control" id="pais" name="pais" value="Brasil">
                                 </div>
 
                                 <div class="col-12">
                                     <label for="observacoes" class="form-label">Observações</label>
-                                    <textarea
-                                        class="form-control"
-                                        id="observacoes"
-                                        name="observacoes"
-                                        rows="3"
+                                    <textarea class="form-control" id="observacoes" name="observacoes" rows="3"
                                         placeholder="Informações adicionais"></textarea>
                                 </div>
                             </div>
@@ -332,28 +270,30 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                                 </thead>
                                 <tbody>
                                     <?php if (empty($clientesAtivos)): ?>
-                                        <tr>
-                                            <td colspan="5" class="text-center text-secondary py-4">
-                                                Nenhum hóspede ativo encontrado.
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td colspan="5" class="text-center text-secondary py-4">
+                                            Nenhum hóspede ativo encontrado.
+                                        </td>
+                                    </tr>
                                     <?php else: ?>
-                                        <?php foreach ($clientesAtivos as $cliente): ?>
-                                            <tr>
-                                                <td class="px-4">
-                                                    <?= htmlspecialchars($cliente['nome'], ENT_QUOTES, 'UTF-8') ?>
-                                                </td>
-                                                <td><?= htmlspecialchars($cliente['cpf'], ENT_QUOTES, 'UTF-8') ?></td>
-                                                <td><?= htmlspecialchars($cliente['telefone'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
-                                                <td><?= htmlspecialchars($cliente['email'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
-                                                <?php $status = strtolower((string) ($cliente['status'] ?? '')); ?>
-                                                <td>
-                                                    <span class="badge <?= $status === 'ativo' ? 'text-bg-success' : 'text-bg-danger' ?>">
-                                                        <?= htmlspecialchars(ucfirst($status ?: '-'), ENT_QUOTES, 'UTF-8') ?>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
+                                    <?php foreach ($clientesAtivos as $cliente): ?>
+                                    <tr>
+                                        <td class="px-4">
+                                            <?= htmlspecialchars($cliente['nome'], ENT_QUOTES, 'UTF-8') ?>
+                                        </td>
+                                        <td><?= htmlspecialchars($cliente['cpf'], ENT_QUOTES, 'UTF-8') ?></td>
+                                        <td><?= htmlspecialchars($cliente['telefone'] ?? '-', ENT_QUOTES, 'UTF-8') ?>
+                                        </td>
+                                        <td><?= htmlspecialchars($cliente['email'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
+                                        <?php $status = strtolower((string) ($cliente['status'] ?? '')); ?>
+                                        <td>
+                                            <span
+                                                class="badge <?= $status === 'ativo' ? 'text-bg-success' : 'text-bg-danger' ?>">
+                                                <?= htmlspecialchars(ucfirst($status ?: '-'), ENT_QUOTES, 'UTF-8') ?>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach; ?>
                                     <?php endif; ?>
                                 </tbody>
                             </table>
@@ -368,53 +308,53 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        document.querySelectorAll('[role="alert"]').forEach((alert) => {
-            window.setTimeout(() => {
-                bootstrap.Alert.getOrCreateInstance(alert).close();
-            }, 3000);
-        });
+    document.querySelectorAll('[role="alert"]').forEach((alert) => {
+        window.setTimeout(() => {
+            bootstrap.Alert.getOrCreateInstance(alert).close();
+        }, 3000);
+    });
 
-        new DataTable('#tabelaHospedes', {
-            pageLength: 5,
-            lengthMenu: [5, 10, 25, 50],
-            language: {
-                search: 'Buscar:',
-                lengthMenu: 'Mostrar _MENU_ registros',
-                info: 'Mostrando _START_ a _END_ de _TOTAL_ registros',
-                infoEmpty: 'Nenhum registro encontrado',
-                zeroRecords: 'Nenhum hóspede encontrado',
-                paginate: {
-                    first: 'Primeiro',
-                    last: 'Último',
-                    next: 'Próximo',
-                    previous: 'Anterior'
-                }
+    new DataTable('#tabelaHospedes', {
+        pageLength: 5,
+        lengthMenu: [5, 10, 25, 50],
+        language: {
+            search: 'Buscar:',
+            lengthMenu: 'Mostrar _MENU_ registros',
+            info: 'Mostrando _START_ a _END_ de _TOTAL_ registros',
+            infoEmpty: 'Nenhum registro encontrado',
+            zeroRecords: 'Nenhum hóspede encontrado',
+            paginate: {
+                first: 'Primeiro',
+                last: 'Último',
+                next: 'Próximo',
+                previous: 'Anterior'
             }
-        });
+        }
+    });
 
-        const sidebarMenu = document.getElementById('sidebarMenu');
+    const sidebarMenu = document.getElementById('sidebarMenu');
 
-        const sidebarToggles = [
-            document.getElementById('sidebarToggle'),
-            document.getElementById('navbarSidebarToggle')
-        ].filter(Boolean);
+    const sidebarToggles = [
+        document.getElementById('sidebarToggle'),
+        document.getElementById('navbarSidebarToggle')
+    ].filter(Boolean);
 
-        sidebarToggles.forEach((sidebarToggle) => {
-            sidebarToggle.addEventListener('click', () => {
-                const isCollapsed = sidebarMenu.classList.toggle('sidebar-collapsed');
+    sidebarToggles.forEach((sidebarToggle) => {
+        sidebarToggle.addEventListener('click', () => {
+            const isCollapsed = sidebarMenu.classList.toggle('sidebar-collapsed');
 
-                sidebarToggles.forEach((toggle) => {
-                    toggle.setAttribute('aria-expanded', String(!isCollapsed));
+            sidebarToggles.forEach((toggle) => {
+                toggle.setAttribute('aria-expanded', String(!isCollapsed));
 
-                    const icon = toggle.querySelector('i');
+                const icon = toggle.querySelector('i');
 
-                    if (icon) {
-                        icon.classList.toggle('bi-chevron-left', !isCollapsed);
-                        icon.classList.toggle('bi-chevron-right', isCollapsed);
-                    }
-                });
+                if (icon) {
+                    icon.classList.toggle('bi-chevron-left', !isCollapsed);
+                    icon.classList.toggle('bi-chevron-right', isCollapsed);
+                }
             });
         });
+    });
     </script>
     <script src="/panaoica/app/Assets/javaScript/validarCep.js"></script>
 </body>

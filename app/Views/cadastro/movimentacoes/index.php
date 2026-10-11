@@ -1,13 +1,5 @@
 <?php
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-
-if (!isset($_SESSION['usuario'])) {
-    header('Location: /panaoica/login');
-    exit;
-}
-
+require_once __DIR__ . '/../../../config/seguranca.php';
 require_once __DIR__ . '/../../../config/conn.php';
 
 $itens = $conn->query(
@@ -36,36 +28,36 @@ $estoqueTotal = array_sum(array_column($itens, 'quantidade_estoque'));
     <link href="/panaoica/app/Assets/css/style.css" rel="stylesheet">
 
     <style>
-        .estoque-hero {
-            background: linear-gradient(135deg, #198754 0%, #146c43 100%);
-            color: #fff;
-        }
+    .estoque-hero {
+        background: linear-gradient(135deg, #198754 0%, #146c43 100%);
+        color: #fff;
+    }
 
-        .estoque-hero .icon-box {
-            width: 3.25rem;
-            height: 3.25rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: .85rem;
-            background: rgba(255, 255, 255, .16);
-            font-size: 1.6rem;
-        }
+    .estoque-hero .icon-box {
+        width: 3.25rem;
+        height: 3.25rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: .85rem;
+        background: rgba(255, 255, 255, .16);
+        font-size: 1.6rem;
+    }
 
-        .summary-card {
-            border-left: 3px solid #198754;
-        }
+    .summary-card {
+        border-left: 3px solid #198754;
+    }
 
-        .summary-card .summary-icon {
-            width: 2.5rem;
-            height: 2.5rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: .65rem;
-            background: #e8f5ee;
-            color: #198754;
-        }
+    .summary-card .summary-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: .65rem;
+        background: #e8f5ee;
+        color: #198754;
+    }
     </style>
 </head>
 
@@ -78,21 +70,21 @@ $estoqueTotal = array_sum(array_column($itens, 'quantidade_estoque'));
         <main class="main-content flex-grow-1 p-3 p-md-4">
             <div class="container-fluid">
                 <?php if ($sucesso): ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Movimentação registrada com sucesso.
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
-                    </div>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Movimentação registrada com sucesso.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                </div>
                 <?php endif; ?>
 
                 <?php if (!empty($erros)): ?>
-                    <div class="alert alert-danger" role="alert">
-                        <strong>Confira os dados informados:</strong>
-                        <ul class="mb-0 mt-2">
-                            <?php foreach ($erros as $erro): ?>
-                                <li><?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
+                <div class="alert alert-danger" role="alert">
+                    <strong>Confira os dados informados:</strong>
+                    <ul class="mb-0 mt-2">
+                        <?php foreach ($erros as $erro): ?>
+                        <li><?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
                 <?php endif; ?>
 
                 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
@@ -144,10 +136,10 @@ $estoqueTotal = array_sum(array_column($itens, 'quantidade_estoque'));
                                             <select class="form-select" id="id_item" name="id_item" required>
                                                 <option value="">Selecione o item</option>
                                                 <?php foreach ($itens as $item): ?>
-                                                    <option value="<?= (int) $item['id_item'] ?>">
-                                                        <?= htmlspecialchars($item['nome'], ENT_QUOTES, 'UTF-8') ?>
-                                                        — saldo: <?= (int) $item['quantidade_estoque'] ?>
-                                                    </option>
+                                                <option value="<?= (int) $item['id_item'] ?>">
+                                                    <?= htmlspecialchars($item['nome'], ENT_QUOTES, 'UTF-8') ?>
+                                                    — saldo: <?= (int) $item['quantidade_estoque'] ?>
+                                                </option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
@@ -183,9 +175,11 @@ $estoqueTotal = array_sum(array_column($itens, 'quantidade_estoque'));
                                         </div>
 
                                         <div class="col-12">
-                                            <label for="observacao" class="form-label">Observação <span class="text-secondary fw-normal">(opcional)</span></label>
+                                            <label for="observacao" class="form-label">Observação <span
+                                                    class="text-secondary fw-normal">(opcional)</span></label>
                                             <textarea class="form-control" id="observacao" name="observacao" rows="2"
-                                                maxlength="255" placeholder="Ex.: Reposição recebida do fornecedor"></textarea>
+                                                maxlength="255"
+                                                placeholder="Ex.: Reposição recebida do fornecedor"></textarea>
                                         </div>
                                     </div>
 
@@ -205,7 +199,8 @@ $estoqueTotal = array_sum(array_column($itens, 'quantidade_estoque'));
                     <div class="col-12 col-xl-4">
                         <div class="card border-0 shadow-sm h-100">
                             <div class="card-header bg-white border-0 p-4 pb-0">
-                                <h2 class="h5 mb-1"><i class="bi bi-bar-chart-line me-2 text-success"></i>Resumo do estoque</h2>
+                                <h2 class="h5 mb-1"><i class="bi bi-bar-chart-line me-2 text-success"></i>Resumo do
+                                    estoque</h2>
                                 <p class="text-secondary mb-0">Visão rápida dos itens cadastrados.</p>
                             </div>
                             <div class="card-body p-4 d-flex flex-column gap-3">
@@ -233,9 +228,11 @@ $estoqueTotal = array_sum(array_column($itens, 'quantidade_estoque'));
                 </div>
 
                 <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-white border-0 p-4 d-flex flex-wrap justify-content-between align-items-center gap-3">
+                    <div
+                        class="card-header bg-white border-0 p-4 d-flex flex-wrap justify-content-between align-items-center gap-3">
                         <div>
-                            <h2 class="h5 mb-1"><i class="bi bi-clock-history me-2 text-success"></i>Últimas movimentações</h2>
+                            <h2 class="h5 mb-1"><i class="bi bi-clock-history me-2 text-success"></i>Últimas
+                                movimentações</h2>
                             <p class="text-secondary mb-0">Acompanhe as alterações recentes do estoque.</p>
                         </div>
                         <span class="badge text-bg-secondary">0 registros</span>
@@ -269,27 +266,27 @@ $estoqueTotal = array_sum(array_column($itens, 'quantidade_estoque'));
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const sidebarMenu = document.getElementById('sidebarMenu');
-        const sidebarToggles = [
-            document.getElementById('sidebarToggle'),
-            document.getElementById('navbarSidebarToggle')
-        ].filter(Boolean);
+    const sidebarMenu = document.getElementById('sidebarMenu');
+    const sidebarToggles = [
+        document.getElementById('sidebarToggle'),
+        document.getElementById('navbarSidebarToggle')
+    ].filter(Boolean);
 
-        sidebarToggles.forEach((sidebarToggle) => {
-            sidebarToggle.addEventListener('click', () => {
-                const isCollapsed = sidebarMenu.classList.toggle('sidebar-collapsed');
+    sidebarToggles.forEach((sidebarToggle) => {
+        sidebarToggle.addEventListener('click', () => {
+            const isCollapsed = sidebarMenu.classList.toggle('sidebar-collapsed');
 
-                sidebarToggles.forEach((toggle) => {
-                    toggle.setAttribute('aria-expanded', String(!isCollapsed));
-                    const icon = toggle.querySelector('i');
+            sidebarToggles.forEach((toggle) => {
+                toggle.setAttribute('aria-expanded', String(!isCollapsed));
+                const icon = toggle.querySelector('i');
 
-                    if (icon) {
-                        icon.classList.toggle('bi-chevron-left', !isCollapsed);
-                        icon.classList.toggle('bi-chevron-right', isCollapsed);
-                    }
-                });
+                if (icon) {
+                    icon.classList.toggle('bi-chevron-left', !isCollapsed);
+                    icon.classList.toggle('bi-chevron-right', isCollapsed);
+                }
             });
         });
+    });
     </script>
 </body>
 

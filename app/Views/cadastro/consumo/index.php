@@ -1,13 +1,5 @@
 <?php
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-
-if (!isset($_SESSION['usuario'])) {
-    header('Location: /panaoica/login');
-    exit;
-}
-
+require_once __DIR__ . '/../../../config/seguranca.php';
 require_once __DIR__ . '/../../../config/conn.php';
 require_once __DIR__ . '/../../../Repositories/UsuarioRepository.php';
 
@@ -29,36 +21,36 @@ unset($_SESSION['consumo_erros']);
     <link href="/panaoica/app/Assets/css/style.css" rel="stylesheet">
 
     <style>
-        .consumo-hero {
-            background: linear-gradient(135deg, #0d6efd 0%, #084298 100%);
-            color: #fff;
-        }
+    .consumo-hero {
+        background: linear-gradient(135deg, #0d6efd 0%, #084298 100%);
+        color: #fff;
+    }
 
-        .consumo-hero .icon-box {
-            width: 3.25rem;
-            height: 3.25rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: .85rem;
-            background: rgba(255, 255, 255, .16);
-            font-size: 1.6rem;
-        }
+    .consumo-hero .icon-box {
+        width: 3.25rem;
+        height: 3.25rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: .85rem;
+        background: rgba(255, 255, 255, .16);
+        font-size: 1.6rem;
+    }
 
-        .summary-card {
-            border-left: 3px solid #0d6efd;
-        }
+    .summary-card {
+        border-left: 3px solid #0d6efd;
+    }
 
-        .summary-card .summary-icon {
-            width: 2.5rem;
-            height: 2.5rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: .65rem;
-            background: #e7f1ff;
-            color: #0d6efd;
-        }
+    .summary-card .summary-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: .65rem;
+        background: #e7f1ff;
+        color: #0d6efd;
+    }
     </style>
 </head>
 
@@ -71,21 +63,21 @@ unset($_SESSION['consumo_erros']);
         <main class="main-content flex-grow-1 p-3 p-md-4">
             <div class="container-fluid">
                 <?php if ($sucesso): ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Consumo registrado com sucesso.
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
-                    </div>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Consumo registrado com sucesso.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                </div>
                 <?php endif; ?>
 
                 <?php if (!empty($erros)): ?>
-                    <div class="alert alert-danger" role="alert">
-                        <strong>Confira os dados informados:</strong>
-                        <ul class="mb-0 mt-2">
-                            <?php foreach ($erros as $erro): ?>
-                                <li><?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
+                <div class="alert alert-danger" role="alert">
+                    <strong>Confira os dados informados:</strong>
+                    <ul class="mb-0 mt-2">
+                        <?php foreach ($erros as $erro): ?>
+                        <li><?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
                 <?php endif; ?>
 
                 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
@@ -104,7 +96,8 @@ unset($_SESSION['consumo_erros']);
                             <div class="col-lg-8">
                                 <div class="d-flex align-items-center gap-3 mb-3">
                                     <span class="icon-box"><i class="bi bi-cup-straw"></i></span>
-                                    <span class="text-uppercase small fw-semibold opacity-75">Lançamento de consumo</span>
+                                    <span class="text-uppercase small fw-semibold opacity-75">Lançamento de
+                                        consumo</span>
                                 </div>
                                 <h2 class="h4 mb-2">Controle rápido e preciso</h2>
                                 <p class="mb-0 opacity-75">
@@ -137,13 +130,14 @@ unset($_SESSION['consumo_erros']);
                                             <select class="form-select" id="id_cliente" name="id_cliente" required>
                                                 <option value="">Selecione o hóspede</option>
                                                 <?php foreach ($clientesAtivos as $cliente): ?>
-                                                    <option value="<?= (int) $cliente['id_cliente'] ?>">
-                                                        <?= htmlspecialchars($cliente['nome'], ENT_QUOTES, 'UTF-8') ?>
-                                                        — CPF <?= htmlspecialchars($cliente['cpf'], ENT_QUOTES, 'UTF-8') ?>
-                                                    </option>
+                                                <option value="<?= (int) $cliente['id_cliente'] ?>">
+                                                    <?= htmlspecialchars($cliente['nome'], ENT_QUOTES, 'UTF-8') ?>
+                                                    — CPF <?= htmlspecialchars($cliente['cpf'], ENT_QUOTES, 'UTF-8') ?>
+                                                </option>
                                                 <?php endforeach; ?>
                                             </select>
-                                            <div class="form-text">A reserva vinculada será identificada pelo hóspede.</div>
+                                            <div class="form-text">A reserva vinculada será identificada pelo hóspede.
+                                            </div>
                                         </div>
 
                                         <div class="col-12 col-md-6">
@@ -162,20 +156,24 @@ unset($_SESSION['consumo_erros']);
 
                                         <div class="col-12 col-md-4">
                                             <label for="quantidade" class="form-label">Quantidade</label>
-                                            <input type="number" class="form-control" id="quantidade" name="quantidade" min="1" step="1" placeholder="Ex.: 1" required>
+                                            <input type="number" class="form-control" id="quantidade" name="quantidade"
+                                                min="1" step="1" placeholder="Ex.: 1" required>
                                         </div>
 
                                         <div class="col-12 col-md-4">
                                             <label for="valor_unitario_pago" class="form-label">Valor unitário</label>
                                             <div class="input-group">
                                                 <span class="input-group-text">R$</span>
-                                                <input type="number" class="form-control" id="valor_unitario_pago" name="valor_unitario_pago" min="0" step="0.01" placeholder="0,00" required>
+                                                <input type="number" class="form-control" id="valor_unitario_pago"
+                                                    name="valor_unitario_pago" min="0" step="0.01" placeholder="0,00"
+                                                    required>
                                             </div>
                                         </div>
 
                                         <div class="col-12 col-md-4">
                                             <label for="data_consumo" class="form-label">Data e hora</label>
-                                            <input type="datetime-local" class="form-control" id="data_consumo" name="data_consumo">
+                                            <input type="datetime-local" class="form-control" id="data_consumo"
+                                                name="data_consumo">
                                         </div>
                                     </div>
 
@@ -223,9 +221,11 @@ unset($_SESSION['consumo_erros']);
                 </div>
 
                 <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-white border-0 p-4 d-flex flex-wrap justify-content-between align-items-center gap-3">
+                    <div
+                        class="card-header bg-white border-0 p-4 d-flex flex-wrap justify-content-between align-items-center gap-3">
                         <div>
-                            <h2 class="h5 mb-1"><i class="bi bi-clock-history me-2 text-primary"></i>Consumos recentes</h2>
+                            <h2 class="h5 mb-1"><i class="bi bi-clock-history me-2 text-primary"></i>Consumos recentes
+                            </h2>
                             <p class="text-secondary mb-0">Últimos itens lançados nas reservas.</p>
                         </div>
                         <span class="badge text-bg-secondary">0 registros</span>
@@ -259,27 +259,27 @@ unset($_SESSION['consumo_erros']);
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const sidebarMenu = document.getElementById('sidebarMenu');
-        const sidebarToggles = [
-            document.getElementById('sidebarToggle'),
-            document.getElementById('navbarSidebarToggle')
-        ].filter(Boolean);
+    const sidebarMenu = document.getElementById('sidebarMenu');
+    const sidebarToggles = [
+        document.getElementById('sidebarToggle'),
+        document.getElementById('navbarSidebarToggle')
+    ].filter(Boolean);
 
-        sidebarToggles.forEach((sidebarToggle) => {
-            sidebarToggle.addEventListener('click', () => {
-                const isCollapsed = sidebarMenu.classList.toggle('sidebar-collapsed');
+    sidebarToggles.forEach((sidebarToggle) => {
+        sidebarToggle.addEventListener('click', () => {
+            const isCollapsed = sidebarMenu.classList.toggle('sidebar-collapsed');
 
-                sidebarToggles.forEach((toggle) => {
-                    toggle.setAttribute('aria-expanded', String(!isCollapsed));
-                    const icon = toggle.querySelector('i');
+            sidebarToggles.forEach((toggle) => {
+                toggle.setAttribute('aria-expanded', String(!isCollapsed));
+                const icon = toggle.querySelector('i');
 
-                    if (icon) {
-                        icon.classList.toggle('bi-chevron-left', !isCollapsed);
-                        icon.classList.toggle('bi-chevron-right', isCollapsed);
-                    }
-                });
+                if (icon) {
+                    icon.classList.toggle('bi-chevron-left', !isCollapsed);
+                    icon.classList.toggle('bi-chevron-right', isCollapsed);
+                }
             });
         });
+    });
     </script>
 </body>
 

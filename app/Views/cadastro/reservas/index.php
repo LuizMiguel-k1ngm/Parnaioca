@@ -1,13 +1,5 @@
 <?php
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-
-if (!isset($_SESSION['usuario'])) {
-    header('Location: /panaoica/login');
-    exit;
-}
-
+require_once __DIR__ . '/../../../config/seguranca.php';
 require_once __DIR__ . '/../../../config/conn.php';
 
 $clientes = $conn->query(
@@ -214,38 +206,41 @@ $statusReservas = $conn->query(
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-    const sidebarMenu = document.getElementById('sidebarMenu');
-    const sidebarToggle = document.getElementById('sidebarToggle');
-    const navbarSidebarToggle = document.getElementById('navbarSidebarToggle');
-    [sidebarToggle, navbarSidebarToggle].filter(Boolean).forEach((toggle) => {
-        toggle.addEventListener('click', () => {
-            const collapsed = sidebarMenu.classList.toggle('sidebar-collapsed');
-            toggle.setAttribute('aria-expanded', String(!collapsed));
+        const sidebarMenu = document.getElementById('sidebarMenu');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const navbarSidebarToggle = document.getElementById('navbarSidebarToggle');
+        [sidebarToggle, navbarSidebarToggle].filter(Boolean).forEach((toggle) => {
+            toggle.addEventListener('click', () => {
+                const collapsed = sidebarMenu.classList.toggle('sidebar-collapsed');
+                toggle.setAttribute('aria-expanded', String(!collapsed));
+            });
         });
-    });
 
-    const acomodacao = document.getElementById('id_acomodacao');
-    const checkin = document.getElementById('data_checkin');
-    const checkout = document.getElementById('data_checkout');
-    const total = document.getElementById('reservationTotal');
-    const totalInput = document.getElementById('valor_total');
-    const summary = document.getElementById('reservationSummary');
+        const acomodacao = document.getElementById('id_acomodacao');
+        const checkin = document.getElementById('data_checkin');
+        const checkout = document.getElementById('data_checkout');
+        const total = document.getElementById('reservationTotal');
+        const totalInput = document.getElementById('valor_total');
+        const summary = document.getElementById('reservationSummary');
 
-    function atualizarResumo() {
-        const inicio = new Date(`${checkin.value}T00:00:00`);
-        const fim = new Date(`${checkout.value}T00:00:00`);
-        const diaria = Number(acomodacao.selectedOptions[0]?.dataset.diaria || 0);
-        const noites = (fim - inicio) / 86400000;
-        const valor = noites > 0 ? noites * diaria : 0;
+        function atualizarResumo() {
+            const inicio = new Date(`${checkin.value}T00:00:00`);
+            const fim = new Date(`${checkout.value}T00:00:00`);
+            const diaria = Number(acomodacao.selectedOptions[0]?.dataset.diaria || 0);
+            const noites = (fim - inicio) / 86400000;
+            const valor = noites > 0 ? noites * diaria : 0;
 
-        total.textContent = valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        totalInput.value = valor.toFixed(2);
-        summary.textContent = noites > 0
-            ? `${noites} ${noites === 1 ? 'noite' : 'noites'} x ${diaria.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} por diária`
-            : 'Selecione datas válidas e a acomodação.';
-    }
+            total.textContent = valor.toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            });
+            totalInput.value = valor.toFixed(2);
+            summary.textContent = noites > 0 ?
+                `${noites} ${noites === 1 ? 'noite' : 'noites'} x ${diaria.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} por diária` :
+                'Selecione datas válidas e a acomodação.';
+        }
 
-    [acomodacao, checkin, checkout].forEach((field) => field.addEventListener('change', atualizarResumo));
+        [acomodacao, checkin, checkout].forEach((field) => field.addEventListener('change', atualizarResumo));
     </script>
 </body>
 

@@ -1,13 +1,5 @@
 <?php
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-
-if (!isset($_SESSION['usuario'])) {
-    header('Location: /panaoica/login');
-    exit;
-}
-
+require_once __DIR__ . '/../../../config/seguranca.php';
 require_once __DIR__ . '/../../../config/conn.php';
 
 $indicadores = [
@@ -71,56 +63,56 @@ $statusClasses = [
     <link href="/panaoica/app/Assets/css/style.css" rel="stylesheet">
 
     <style>
-        .dashboard-hero {
-            background: linear-gradient(135deg, #0d6efd 0%, #084298 100%);
-            color: #fff;
-        }
+    .dashboard-hero {
+        background: linear-gradient(135deg, #0d6efd 0%, #084298 100%);
+        color: #fff;
+    }
 
-        .dashboard-hero .icon-box,
-        .metric-icon {
-            width: 3rem;
-            height: 3rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: .8rem;
-        }
+    .dashboard-hero .icon-box,
+    .metric-icon {
+        width: 3rem;
+        height: 3rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: .8rem;
+    }
 
-        .dashboard-hero .icon-box {
-            background: rgba(255, 255, 255, .16);
-            font-size: 1.45rem;
-        }
+    .dashboard-hero .icon-box {
+        background: rgba(255, 255, 255, .16);
+        font-size: 1.45rem;
+    }
 
-        .metric-card {
-            border: 0;
-            transition: transform .2s ease, box-shadow .2s ease;
-        }
+    .metric-card {
+        border: 0;
+        transition: transform .2s ease, box-shadow .2s ease;
+    }
 
-        .metric-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1) !important;
-        }
+    .metric-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1) !important;
+    }
 
-        .metric-icon {
-            background: #e7f1ff;
-            color: #0d6efd;
-            font-size: 1.25rem;
-        }
+    .metric-icon {
+        background: #e7f1ff;
+        color: #0d6efd;
+        font-size: 1.25rem;
+    }
 
-        .metric-icon.success {
-            background: #e8f5ee;
-            color: #198754;
-        }
+    .metric-icon.success {
+        background: #e8f5ee;
+        color: #198754;
+    }
 
-        .metric-icon.warning {
-            background: #fff3cd;
-            color: #997404;
-        }
+    .metric-icon.warning {
+        background: #fff3cd;
+        color: #997404;
+    }
 
-        .status-bar {
-            height: .5rem;
-            border-radius: 999px;
-        }
+    .status-bar {
+        height: .5rem;
+        border-radius: 999px;
+    }
     </style>
 </head>
 
@@ -218,12 +210,15 @@ $statusClasses = [
                 <div class="row g-4 mb-4">
                     <div class="col-12 col-xl-8">
                         <div class="card border-0 shadow-sm h-100">
-                            <div class="card-header bg-white border-0 p-4 d-flex justify-content-between align-items-center">
+                            <div
+                                class="card-header bg-white border-0 p-4 d-flex justify-content-between align-items-center">
                                 <div>
-                                    <h2 class="h5 mb-1"><i class="bi bi-calendar3 me-2 text-primary"></i>Reservas recentes</h2>
+                                    <h2 class="h5 mb-1"><i class="bi bi-calendar3 me-2 text-primary"></i>Reservas
+                                        recentes</h2>
                                     <p class="text-secondary mb-0">Últimas reservas registradas no sistema.</p>
                                 </div>
-                                <a href="/panaoica/cadastro/quarto" class="btn btn-sm btn-outline-primary">Acomodações</a>
+                                <a href="/panaoica/cadastro/quarto"
+                                    class="btn btn-sm btn-outline-primary">Acomodações</a>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-hover align-middle mb-0">
@@ -237,25 +232,29 @@ $statusClasses = [
                                     </thead>
                                     <tbody>
                                         <?php if (empty($reservasRecentes)): ?>
-                                            <tr>
-                                                <td colspan="4" class="text-center text-secondary py-5">
-                                                    <i class="bi bi-inbox fs-3 d-block mb-2"></i>
-                                                    Nenhuma reserva registrada.
-                                                </td>
-                                            </tr>
+                                        <tr>
+                                            <td colspan="4" class="text-center text-secondary py-5">
+                                                <i class="bi bi-inbox fs-3 d-block mb-2"></i>
+                                                Nenhuma reserva registrada.
+                                            </td>
+                                        </tr>
                                         <?php else: ?>
-                                            <?php foreach ($reservasRecentes as $reserva): ?>
-                                                <?php $statusClass = $statusClasses[$reserva['status_codigo']] ?? 'secondary'; ?>
-                                                <tr>
-                                                    <td class="px-4 fw-semibold"><?= htmlspecialchars($reserva['cliente'], ENT_QUOTES, 'UTF-8') ?></td>
-                                                    <td>Quarto <?= (int) $reserva['numero_quarto'] ?></td>
-                                                    <td class="small">
-                                                        <?= (new DateTimeImmutable($reserva['data_checkin']))->format('d/m/Y') ?>
-                                                        a <?= (new DateTimeImmutable($reserva['data_checkout']))->format('d/m/Y') ?>
-                                                    </td>
-                                                    <td><span class="badge text-bg-<?= $statusClass ?>"><?= htmlspecialchars($reserva['status_descricao'], ENT_QUOTES, 'UTF-8') ?></span></td>
-                                                </tr>
-                                            <?php endforeach; ?>
+                                        <?php foreach ($reservasRecentes as $reserva): ?>
+                                        <?php $statusClass = $statusClasses[$reserva['status_codigo']] ?? 'secondary'; ?>
+                                        <tr>
+                                            <td class="px-4 fw-semibold">
+                                                <?= htmlspecialchars($reserva['cliente'], ENT_QUOTES, 'UTF-8') ?></td>
+                                            <td>Quarto <?= (int) $reserva['numero_quarto'] ?></td>
+                                            <td class="small">
+                                                <?= (new DateTimeImmutable($reserva['data_checkin']))->format('d/m/Y') ?>
+                                                a
+                                                <?= (new DateTimeImmutable($reserva['data_checkout']))->format('d/m/Y') ?>
+                                            </td>
+                                            <td><span
+                                                    class="badge text-bg-<?= $statusClass ?>"><?= htmlspecialchars($reserva['status_descricao'], ENT_QUOTES, 'UTF-8') ?></span>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach; ?>
                                         <?php endif; ?>
                                     </tbody>
                                 </table>
@@ -266,29 +265,33 @@ $statusClasses = [
                     <div class="col-12 col-xl-4">
                         <div class="card border-0 shadow-sm h-100">
                             <div class="card-header bg-white border-0 p-4">
-                                <h2 class="h5 mb-1"><i class="bi bi-pie-chart me-2 text-primary"></i>Status das reservas</h2>
+                                <h2 class="h5 mb-1"><i class="bi bi-pie-chart me-2 text-primary"></i>Status das reservas
+                                </h2>
                                 <p class="text-secondary mb-0">Distribuição atual.</p>
                             </div>
                             <div class="card-body p-4">
                                 <?php if (empty($statusReservas) || $totalReservas === 0): ?>
-                                    <div class="text-center text-secondary py-4">
-                                        <i class="bi bi-bar-chart fs-3 d-block mb-2"></i>
-                                        Nenhuma reserva para exibir.
-                                    </div>
+                                <div class="text-center text-secondary py-4">
+                                    <i class="bi bi-bar-chart fs-3 d-block mb-2"></i>
+                                    Nenhuma reserva para exibir.
+                                </div>
                                 <?php else: ?>
-                                    <?php foreach ($statusReservas as $status): ?>
-                                        <?php $percentual = $totalReservas > 0 ? ($status['total'] / $totalReservas) * 100 : 0; ?>
-                                        <?php $statusClass = $statusClasses[$status['codigo']] ?? 'secondary'; ?>
-                                        <div class="mb-3">
-                                            <div class="d-flex justify-content-between small mb-1">
-                                                <span><?= htmlspecialchars($status['descricao'], ENT_QUOTES, 'UTF-8') ?></span>
-                                                <strong><?= (int) $status['total'] ?></strong>
-                                            </div>
-                                            <div class="progress status-bar">
-                                                <div class="progress-bar bg-<?= $statusClass ?>" style="width: <?= $percentual ?>%" role="progressbar" aria-label="<?= htmlspecialchars($status['descricao'], ENT_QUOTES, 'UTF-8') ?>"></div>
-                                            </div>
+                                <?php foreach ($statusReservas as $status): ?>
+                                <?php $percentual = $totalReservas > 0 ? ($status['total'] / $totalReservas) * 100 : 0; ?>
+                                <?php $statusClass = $statusClasses[$status['codigo']] ?? 'secondary'; ?>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between small mb-1">
+                                        <span><?= htmlspecialchars($status['descricao'], ENT_QUOTES, 'UTF-8') ?></span>
+                                        <strong><?= (int) $status['total'] ?></strong>
+                                    </div>
+                                    <div class="progress status-bar">
+                                        <div class="progress-bar bg-<?= $statusClass ?>"
+                                            style="width: <?= $percentual ?>%" role="progressbar"
+                                            aria-label="<?= htmlspecialchars($status['descricao'], ENT_QUOTES, 'UTF-8') ?>">
                                         </div>
-                                    <?php endforeach; ?>
+                                    </div>
+                                </div>
+                                <?php endforeach; ?>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -300,15 +303,19 @@ $statusClasses = [
                         <a href="/panaoica/cadastro/hospede" class="card border-0 shadow-sm text-decoration-none h-100">
                             <div class="card-body p-4 d-flex align-items-center gap-3">
                                 <span class="metric-icon"><i class="bi bi-person-plus"></i></span>
-                                <div><strong class="d-block text-dark">Cadastrar hóspede</strong><span class="small text-secondary">Adicionar novo cliente</span></div>
+                                <div><strong class="d-block text-dark">Cadastrar hóspede</strong><span
+                                        class="small text-secondary">Adicionar novo cliente</span></div>
                             </div>
                         </a>
                     </div>
                     <div class="col-12 col-md-4">
-                        <a href="/panaoica/cadastro/frigobar" class="card border-0 shadow-sm text-decoration-none h-100">
+                        <a href="/panaoica/cadastro/frigobar"
+                            class="card border-0 shadow-sm text-decoration-none h-100">
                             <div class="card-body p-4 d-flex align-items-center gap-3">
                                 <span class="metric-icon success"><i class="bi bi-cup-hot"></i></span>
-                                <div><strong class="d-block text-dark">Gerenciar frigobares</strong><span class="small text-secondary"><?= $indicadores['frigobares'] ?> ativos</span></div>
+                                <div><strong class="d-block text-dark">Gerenciar frigobares</strong><span
+                                        class="small text-secondary"><?= $indicadores['frigobares'] ?> ativos</span>
+                                </div>
                             </div>
                         </a>
                     </div>
@@ -316,7 +323,9 @@ $statusClasses = [
                         <a href="/panaoica/cadastro/itens" class="card border-0 shadow-sm text-decoration-none h-100">
                             <div class="card-body p-4 d-flex align-items-center gap-3">
                                 <span class="metric-icon warning"><i class="bi bi-box-seam"></i></span>
-                                <div><strong class="d-block text-dark">Consultar itens</strong><span class="small text-secondary"><?= $indicadores['itens'] ?> itens ativos</span></div>
+                                <div><strong class="d-block text-dark">Consultar itens</strong><span
+                                        class="small text-secondary"><?= $indicadores['itens'] ?> itens ativos</span>
+                                </div>
                             </div>
                         </a>
                     </div>
@@ -327,27 +336,27 @@ $statusClasses = [
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const sidebarMenu = document.getElementById('sidebarMenu');
-        const sidebarToggles = [
-            document.getElementById('sidebarToggle'),
-            document.getElementById('navbarSidebarToggle')
-        ].filter(Boolean);
+    const sidebarMenu = document.getElementById('sidebarMenu');
+    const sidebarToggles = [
+        document.getElementById('sidebarToggle'),
+        document.getElementById('navbarSidebarToggle')
+    ].filter(Boolean);
 
-        sidebarToggles.forEach((sidebarToggle) => {
-            sidebarToggle.addEventListener('click', () => {
-                const isCollapsed = sidebarMenu.classList.toggle('sidebar-collapsed');
+    sidebarToggles.forEach((sidebarToggle) => {
+        sidebarToggle.addEventListener('click', () => {
+            const isCollapsed = sidebarMenu.classList.toggle('sidebar-collapsed');
 
-                sidebarToggles.forEach((toggle) => {
-                    toggle.setAttribute('aria-expanded', String(!isCollapsed));
-                    const icon = toggle.querySelector('i');
+            sidebarToggles.forEach((toggle) => {
+                toggle.setAttribute('aria-expanded', String(!isCollapsed));
+                const icon = toggle.querySelector('i');
 
-                    if (icon) {
-                        icon.classList.toggle('bi-chevron-left', !isCollapsed);
-                        icon.classList.toggle('bi-chevron-right', isCollapsed);
-                    }
-                });
+                if (icon) {
+                    icon.classList.toggle('bi-chevron-left', !isCollapsed);
+                    icon.classList.toggle('bi-chevron-right', isCollapsed);
+                }
             });
         });
+    });
     </script>
 </body>
 

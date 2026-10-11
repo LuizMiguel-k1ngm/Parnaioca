@@ -1,13 +1,5 @@
 <?php
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-
-if (!isset($_SESSION['usuario'])) {
-    header('Location: /panaoica/login');
-    exit;
-}
-
+require_once __DIR__ . '/../../../config/seguranca.php';
 require_once __DIR__ . '/../../../config/conn.php';
 
 $inicio = $_GET['inicio'] ?? (new DateTimeImmutable('first day of this month'))->format('Y-m-d');
@@ -78,7 +70,7 @@ $receitasConsumoStatement = $conn->prepare(
 $receitasConsumoStatement->execute(['inicio' => $inicioDateTime, 'fim' => $fimDateTime]);
 $receitasConsumo = $receitasConsumoStatement->fetchAll(PDO::FETCH_ASSOC);
 
-$formatarMoeda = static fn (float $valor): string => 'R$ ' . number_format($valor, 2, ',', '.');
+$formatarMoeda = static fn(float $valor): string => 'R$ ' . number_format($valor, 2, ',', '.');
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -264,7 +256,9 @@ $formatarMoeda = static fn (float $valor): string => 'R$ ' . number_format($valo
                                     </thead>
                                     <tbody>
                                         <?php if (empty($receitasHospedagem)): ?>
-                                            <tr><td colspan="4" class="text-center text-secondary py-5"><i class="bi bi-inbox fs-3 d-block mb-2"></i>Nenhuma receita encontrada.</td></tr>
+                                            <tr>
+                                                <td colspan="4" class="text-center text-secondary py-5"><i class="bi bi-inbox fs-3 d-block mb-2"></i>Nenhuma receita encontrada.</td>
+                                            </tr>
                                         <?php else: ?>
                                             <?php foreach ($receitasHospedagem as $receita): ?>
                                                 <tr>
@@ -301,7 +295,9 @@ $formatarMoeda = static fn (float $valor): string => 'R$ ' . number_format($valo
                                     </thead>
                                     <tbody>
                                         <?php if (empty($receitasConsumo)): ?>
-                                            <tr><td colspan="3" class="text-center text-secondary py-5"><i class="bi bi-inbox fs-3 d-block mb-2"></i>Nenhum consumo encontrado.</td></tr>
+                                            <tr>
+                                                <td colspan="3" class="text-center text-secondary py-5"><i class="bi bi-inbox fs-3 d-block mb-2"></i>Nenhum consumo encontrado.</td>
+                                            </tr>
                                         <?php else: ?>
                                             <?php foreach ($receitasConsumo as $receita): ?>
                                                 <tr>
