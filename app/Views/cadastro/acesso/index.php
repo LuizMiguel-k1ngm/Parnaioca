@@ -1,12 +1,5 @@
 <?php
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-
-if (!isset($_SESSION['usuario'])) {
-    header('Location: /panaoica/login');
-    exit;
-}
+require_once __DIR__ . '/../../../config/seguranca.php';
 
 require_once __DIR__ . '/../../../config/conn.php';
 
@@ -96,19 +89,20 @@ unset($_SESSION['acesso_erros']);
                                             <?php endif; ?>
                                         <?php endforeach; ?>
                                     </select>
-                                    <div class="form-text">Somente funcionários sem acesso cadastrado aparecem aqui.</div>
+                                    <div class="form-text">Somente funcionários sem acesso cadastrado aparecem aqui.
+                                    </div>
                                 </div>
 
                                 <div class="col-12 col-lg-6">
                                     <label for="usuario" class="form-label">Nome de usuário</label>
-                                    <input type="text" class="form-control" id="usuario" name="usuario"
-                                        maxlength="100" placeholder="Ex.: joao.silva" autocomplete="username" required>
+                                    <input type="text" class="form-control" id="usuario" name="usuario" maxlength="100"
+                                        placeholder="Ex.: joao.silva" autocomplete="username" required>
                                 </div>
 
                                 <div class="col-12 col-md-6">
                                     <label for="senha" class="form-label">Senha</label>
-                                    <input type="password" class="form-control" id="senha" name="senha"
-                                        minlength="8" autocomplete="new-password" required>
+                                    <input type="password" class="form-control" id="senha" name="senha" minlength="8"
+                                        autocomplete="new-password" required>
                                     <div class="form-text">Use pelo menos 8 caracteres.</div>
                                 </div>
 
@@ -132,12 +126,16 @@ unset($_SESSION['acesso_erros']);
                 </div>
 
                 <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-white border-0 p-4 d-flex justify-content-between align-items-center gap-3">
+                    <div
+                        class="card-header bg-white border-0 p-4 d-flex justify-content-between align-items-center gap-3">
                         <div>
-                            <h2 class="h5 mb-1"><i class="bi bi-shield-check me-2 text-primary"></i>Acessos cadastrados</h2>
+                            <h2 class="h5 mb-1"><i class="bi bi-shield-check me-2 text-primary"></i>Acessos cadastrados
+                            </h2>
                             <p class="text-secondary mb-0">Confira os usuários vinculados à equipe.</p>
                         </div>
-                        <span class="badge text-bg-secondary"><?= count(array_filter($funcionarios, static fn ($funcionario) => !empty($funcionario['id_usuario']))) ?> acessos</span>
+                        <span
+                            class="badge text-bg-secondary"><?= count(array_filter($funcionarios, static fn($funcionario) => !empty($funcionario['id_usuario']))) ?>
+                            acessos</span>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0">
@@ -151,7 +149,7 @@ unset($_SESSION['acesso_erros']);
                             </thead>
                             <tbody>
                                 <?php
-                                $acessos = array_filter($funcionarios, static fn ($funcionario) => !empty($funcionario['id_usuario']));
+                                $acessos = array_filter($funcionarios, static fn($funcionario) => !empty($funcionario['id_usuario']));
                                 ?>
                                 <?php if (empty($acessos)): ?>
                                     <tr>
@@ -163,7 +161,8 @@ unset($_SESSION['acesso_erros']);
                                 <?php else: ?>
                                     <?php foreach ($acessos as $funcionario): ?>
                                         <tr>
-                                            <td class="px-4"><?= htmlspecialchars($funcionario['nome'], ENT_QUOTES, 'UTF-8') ?></td>
+                                            <td class="px-4"><?= htmlspecialchars($funcionario['nome'], ENT_QUOTES, 'UTF-8') ?>
+                                            </td>
                                             <td><?= htmlspecialchars($funcionario['cargo'], ENT_QUOTES, 'UTF-8') ?></td>
                                             <td><?= htmlspecialchars($funcionario['usuario'], ENT_QUOTES, 'UTF-8') ?></td>
                                             <td>
