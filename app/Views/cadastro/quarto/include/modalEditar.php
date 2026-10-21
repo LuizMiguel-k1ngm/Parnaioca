@@ -38,12 +38,12 @@
 							<label for="editar_valor_diaria" class="form-label">Valor da diária</label>
 							<div class="input-group">
 								<span class="input-group-text">R$</span>
-								<input type="number" class="form-control" id="editar_valor_diaria" name="valor_diaria" min="0" step="0.01" required>
+								<input type="number" class="form-control" id="editar_valor_diaria" name="valor_diaria" min="0" step="0.01" >
 							</div>
 						</div>
 						<div class="col-6">
 							<label for="editar_status" class="form-label">Status</label>
-							<select class="form-select" id="editar_status" name="status" required>
+							<select class="form-select" id="editar_status" name="status">
 								<option value="ativo">Ativo</option>
 								<option value="inativo">Inativo</option>
 							</select>

@@ -20,100 +20,100 @@ $quartosAtivos = (new QuartoRepository($conn))->buscarQuartosAtivos();
     <link href="https://cdn.datatables.net/v/dt/dt-3.1.1/datatables.min.css" rel="stylesheet">
     <script src="https://cdn.datatables.net/v/dt/dt-3.1.1/datatables.min.js"></script>
     <style>
-    .quartos-table-wrapper {
-        overflow-x: auto;
-    }
+        .quartos-table-wrapper {
+            overflow-x: auto;
+        }
 
-    #tabelaQuartos {
-        min-width: 820px;
-        width: 100% !important;
-        table-layout: fixed;
-    }
+        #tabelaQuartos {
+            min-width: 820px;
+            width: 100% !important;
+            table-layout: fixed;
+        }
 
-    #tabelaQuartos col:nth-child(1) {
-        width: 26%;
-    }
+        #tabelaQuartos col:nth-child(1) {
+            width: 26%;
+        }
 
-    #tabelaQuartos col:nth-child(2) {
-        width: 12%;
-    }
+        #tabelaQuartos col:nth-child(2) {
+            width: 12%;
+        }
 
-    #tabelaQuartos col:nth-child(3) {
-        width: 17%;
-    }
+        #tabelaQuartos col:nth-child(3) {
+            width: 17%;
+        }
 
-    #tabelaQuartos col:nth-child(4) {
-        width: 11%;
-    }
+        #tabelaQuartos col:nth-child(4) {
+            width: 11%;
+        }
 
-    #tabelaQuartos col:nth-child(5) {
-        width: 14%;
-    }
+        #tabelaQuartos col:nth-child(5) {
+            width: 14%;
+        }
 
-    #tabelaQuartos col:nth-child(6) {
-        width: 10%;
-    }
+        #tabelaQuartos col:nth-child(6) {
+            width: 10%;
+        }
 
-    #tabelaQuartos col:nth-child(7) {
-        width: 10%;
-    }
+        #tabelaQuartos col:nth-child(7) {
+            width: 10%;
+        }
 
-    #tabelaQuartos thead th {
-        padding-top: 0.85rem;
-        padding-bottom: 0.85rem;
-        color: #495057;
-        font-size: 0.78rem;
-        letter-spacing: 0.03em;
-        text-transform: uppercase;
-        white-space: nowrap;
-    }
+        #tabelaQuartos thead th {
+            padding-top: 0.85rem;
+            padding-bottom: 0.85rem;
+            color: #495057;
+            font-size: 0.78rem;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
 
-    #tabelaQuartos tbody td {
-        padding-top: 0.9rem;
-        padding-bottom: 0.9rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+        #tabelaQuartos tbody td {
+            padding-top: 0.9rem;
+            padding-bottom: 0.9rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
 
-    .quarto-actions {
-        white-space: nowrap;
-    }
+        .quarto-actions {
+            white-space: nowrap;
+        }
 
-    .quarto-actions .btn {
-        width: 34px;
-        height: 34px;
-        padding: 0;
-    }
+        .quarto-actions .btn {
+            width: 34px;
+            height: 34px;
+            padding: 0;
+        }
 
-    .dt-layout-row {
-        align-items: center;
-        gap: 1rem;
-        padding: 0.85rem 1rem;
-    }
-
-    .dt-layout-cell {
-        margin: 0 !important;
-    }
-
-    .dt-search input,
-    .dt-length select {
-        min-height: 38px;
-        border: 1px solid #ced4da;
-        border-radius: 0.375rem;
-        padding: 0.375rem 0.75rem;
-    }
-
-    @media (max-width: 576px) {
         .dt-layout-row {
-            align-items: stretch;
-            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.85rem 1rem;
         }
 
-        .dt-search input {
-            width: 100%;
+        .dt-layout-cell {
+            margin: 0 !important;
         }
-    }
+
+        .dt-search input,
+        .dt-length select {
+            min-height: 38px;
+            border: 1px solid #ced4da;
+            border-radius: 0.375rem;
+            padding: 0.375rem 0.75rem;
+        }
+
+        @media (max-width: 576px) {
+            .dt-layout-row {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .dt-search input {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 
@@ -144,17 +144,17 @@ $quartosAtivos = (new QuartoRepository($conn))->buscarQuartosAtivos();
                         <form method="post" action="/panaoica/cadastro/quarto">
                             <div class="row g-3">
                                 <div class="col-12 col-md-8">
-                                    <label for="nome" class="form-label">Nome da acomodação</label>
+                                    <label for="nome" class="form-label">Nome da acomodação <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="nome" name="nome" maxlength="250"
                                         placeholder="Ex.: Suíte Jardim" required>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <label for="numero_quarto" class="form-label">Número do quarto</label>
+                                    <label for="numero_quarto" class="form-label">Número do quarto <span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" id="numero_quarto" name="numero_quarto"
                                         min="1" placeholder="Ex.: 101" required>
                                 </div>
                                 <div class="col-12 col-md-5">
-                                    <label for="tipo_acomodacao" class="form-label">Tipo de acomodação</label>
+                                    <label for="tipo_acomodacao" class="form-label">Tipo de acomodação <span class="text-danger">*</span></label>
                                     <select class="form-select" id="tipo_acomodacao" name="tipo_acomodacao" required>
                                         <option value="">Selecione</option>
                                         <option value="Quarto">Quarto</option>
@@ -164,32 +164,24 @@ $quartosAtivos = (new QuartoRepository($conn))->buscarQuartosAtivos();
                                     </select>
                                 </div>
                                 <div class="col-12 col-md-3">
-                                    <label for="capacidade" class="form-label">Capacidade</label>
+                                    <label for="capacidade" class="form-label">Capacidade <span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" id="capacidade" name="capacidade" min="1"
                                         placeholder="Hóspedes" required>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <label for="valor_diaria" class="form-label">Valor da diária</label>
+                                    <label for="valor_diaria" class="form-label">Valor da diária <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <span class="input-group-text">R$</span>
                                         <input type="number" class="form-control" id="valor_diaria" name="valor_diaria"
                                             min="0" step="0.01" placeholder="0,00" required>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-4">
-                                    <label for="status" class="form-label">Status</label>
-                                    <select class="form-select" id="status" name="status" required>
-                                        <option value="ativo" selected>Ativo</option>
-                                        <option value="inativo">Inativo</option>
-                                    </select>
+                                <div class="d-flex justify-content-end gap-2 mt-4">
+                                    <button type="reset" class="btn btn-outline-secondary"><i
+                                            class="bi bi-arrow-counterclockwise me-1"></i>Limpar</button>
+                                    <button type="submit" class="btn btn-primary"><i
+                                            class="bi bi-check-lg me-1"></i>Cadastrar quarto</button>
                                 </div>
-                            </div>
-                            <div class="d-flex justify-content-end gap-2 mt-4">
-                                <button type="reset" class="btn btn-outline-secondary"><i
-                                        class="bi bi-arrow-counterclockwise me-1"></i>Limpar</button>
-                                <button type="submit" class="btn btn-primary"><i
-                                        class="bi bi-check-lg me-1"></i>Cadastrar quarto</button>
-                            </div>
                         </form>
                     </div>
                 </div>
@@ -225,50 +217,50 @@ $quartosAtivos = (new QuartoRepository($conn))->buscarQuartosAtivos();
                                 </thead>
                                 <tbody>
                                     <?php if (empty($quartosAtivos)): ?>
-                                    <tr>
-                                        <td colspan="7" class="text-center text-secondary py-4">
-                                            Nenhum quarto ativo encontrado.
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="7" class="text-center text-secondary py-4">
+                                                Nenhum quarto ativo encontrado.
+                                            </td>
+                                        </tr>
                                     <?php else: ?>
-                                    <?php foreach ($quartosAtivos as $quarto): ?>
-                                    <tr>
-                                        <td class="px-2">
-                                            <?= htmlspecialchars($quarto['nome'], ENT_QUOTES, 'UTF-8') ?>
-                                        </td>
-                                        <td><?= htmlspecialchars($quarto['numero_quarto'], ENT_QUOTES, 'UTF-8') ?></td>
-                                        <td><?= htmlspecialchars($quarto['tipo_acomodacao'] ?? '-', ENT_QUOTES, 'UTF-8') ?>
-                                        </td>
-                                        <td class="text-center">
-                                            <?= htmlspecialchars($quarto['capacidade'] ?? '-', ENT_QUOTES, 'UTF-8') ?>
-                                        </td>
-                                        <td class="text-end">
-                                            R$ <?= number_format((float) ($quarto['valor_diaria'] ?? 0), 2, ',', '.') ?>
-                                        </td>
-                                        <td>
-                                            <span class="badge text-bg-success">Ativo</span>
-                                        </td>
-                                        <td class="quarto-actions text-end px-4">
-                                            <button type="button"
-                                                class="btn btn-sm btn-outline-warning me-1 btn-editar-quarto"
-                                                title="Editar quarto" aria-label="Editar quarto" data-bs-toggle="modal"
-                                                data-bs-target="#modalEditarQuarto"
-                                                data-id="<?= (int) $quarto['id_acomodacao'] ?>"
-                                                data-nome="<?= htmlspecialchars($quarto['nome'], ENT_QUOTES, 'UTF-8') ?>"
-                                                data-numero="<?= (int) $quarto['numero_quarto'] ?>"
-                                                data-tipo="<?= htmlspecialchars($quarto['tipo_acomodacao'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
-                                                data-capacidade="<?= (int) $quarto['capacidade'] ?>"
-                                                data-valor="<?= htmlspecialchars((string) $quarto['valor_diaria'], ENT_QUOTES, 'UTF-8') ?>"
-                                                data-status="<?= htmlspecialchars($quarto['status'] ?? 'ativo', ENT_QUOTES, 'UTF-8') ?>">
-                                                <i class="bi bi-pencil-square"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-sm btn-outline-danger"
-                                                title="Excluir quarto" aria-label="Excluir quarto">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <?php endforeach; ?>
+                                        <?php foreach ($quartosAtivos as $quarto): ?>
+                                            <tr>
+                                                <td class="px-2">
+                                                    <?= htmlspecialchars($quarto['nome'], ENT_QUOTES, 'UTF-8') ?>
+                                                </td>
+                                                <td><?= htmlspecialchars($quarto['numero_quarto'], ENT_QUOTES, 'UTF-8') ?></td>
+                                                <td><?= htmlspecialchars($quarto['tipo_acomodacao'] ?? '-', ENT_QUOTES, 'UTF-8') ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?= htmlspecialchars($quarto['capacidade'] ?? '-', ENT_QUOTES, 'UTF-8') ?>
+                                                </td>
+                                                <td class="text-end">
+                                                    R$ <?= number_format((float) ($quarto['valor_diaria'] ?? 0), 2, ',', '.') ?>
+                                                </td>
+                                                <td>
+                                                    <span class="badge text-bg-success">Ativo</span>
+                                                </td>
+                                                <td class="quarto-actions text-end px-4">
+                                                    <button type="button"
+                                                        class="btn btn-sm btn-outline-warning me-1 btn-editar-quarto"
+                                                        title="Editar quarto" aria-label="Editar quarto" data-bs-toggle="modal"
+                                                        data-bs-target="#modalEditarQuarto"
+                                                        data-id="<?= (int) $quarto['id_acomodacao'] ?>"
+                                                        data-nome="<?= htmlspecialchars($quarto['nome'], ENT_QUOTES, 'UTF-8') ?>"
+                                                        data-numero="<?= (int) $quarto['numero_quarto'] ?>"
+                                                        data-tipo="<?= htmlspecialchars($quarto['tipo_acomodacao'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                                                        data-capacidade="<?= (int) $quarto['capacidade'] ?>"
+                                                        data-valor="<?= htmlspecialchars((string) $quarto['valor_diaria'], ENT_QUOTES, 'UTF-8') ?>"
+                                                        data-status="<?= htmlspecialchars($quarto['status'] ?? 'ativo', ENT_QUOTES, 'UTF-8') ?>">
+                                                        <i class="bi bi-pencil-square"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-outline-danger"
+                                                        title="Excluir quarto" aria-label="Excluir quarto">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
                                     <?php endif; ?>
                                 </tbody>
                             </table>
