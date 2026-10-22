@@ -5,6 +5,20 @@ require_once __DIR__ . '/../../../config/conn.php';
 require_once __DIR__ . '/../../../Repositories/UsuarioRepository.php';
 
 $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
+
+function formatarCpf(string $cpf): string
+{
+    $digitos = preg_replace('/\D/', '', $cpf);
+
+    if (strlen($digitos) !== 11) {
+        return $cpf;
+    }
+
+    return substr($digitos, 0, 3) . '.' .
+        substr($digitos, 3, 3) . '.' .
+        substr($digitos, 6, 3) . '-' .
+        substr($digitos, 9, 2);
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -112,8 +126,9 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                                 <div class="col-12 col-md-4">
                                     <label for="cpf" class="form-label">CPF <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="cpf" name="cpf"
-                                        value="<?= htmlspecialchars($hospedeCpf, ENT_QUOTES, 'UTF-8') ?>"
-                                        placeholder="000.000.000-00" required>
+                                        value="<?= htmlspecialchars(formatarCpf($hospedeCpf), ENT_QUOTES, 'UTF-8') ?>"
+                                        placeholder="000.000.000-00" inputmode="numeric" maxlength="14"
+                                        pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required>
                                 </div>
 
                                 <div class="col-12 col-md-4">
@@ -281,7 +296,7 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                                         <td class="px-4">
                                             <?= htmlspecialchars($cliente['nome'], ENT_QUOTES, 'UTF-8') ?>
                                         </td>
-                                        <td><?= htmlspecialchars($cliente['cpf'], ENT_QUOTES, 'UTF-8') ?></td>
+                                        <td><?= htmlspecialchars(formatarCpf((string) $cliente['cpf']), ENT_QUOTES, 'UTF-8') ?></td>
                                         <td><?= htmlspecialchars($cliente['telefone'] ?? '-', ENT_QUOTES, 'UTF-8') ?>
                                         </td>
                                         <td><?= htmlspecialchars($cliente['email'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
@@ -330,6 +345,27 @@ $clientesAtivos = (new UsuarioRepository($conn))->buscarClientesAtivos();
                 previous: 'Anterior'
             }
         }
+    });
+
+    const cpfInput = document.getElementById('cpf');
+
+    cpfInput.addEventListener('input', () => {
+        const digits = cpfInput.value.replace(/\D/g, '').slice(0, 11);
+        let formatted = digits;
+
+        if (digits.length > 3) {
+            formatted = `${digits.slice(0, 3)}.${digits.slice(3)}`;
+        }
+
+        if (digits.length > 6) {
+            formatted = `${digits.slice(0, 3)}.${digits.slice(3, 6)}.${digits.slice(6)}`;
+        }
+
+        if (digits.length > 9) {
+            formatted = `${digits.slice(0, 3)}.${digits.slice(3, 6)}.${digits.slice(6, 9)}-${digits.slice(9)}`;
+        }
+
+        cpfInput.value = formatted;
     });
 
     const sidebarMenu = document.getElementById('sidebarMenu');
