@@ -15,6 +15,34 @@ require_once __DIR__ . '/../config/conn.php';
 require_once __DIR__ . '/../Models/quarto/index.php';
 require_once __DIR__ . '/../Repositories/QuartoRepository.php';
 
+if (($_POST['acao'] ?? '') === 'excluir') {
+    $id = filter_var($_POST['id_acomodacao'] ?? null, FILTER_VALIDATE_INT);
+
+    if ($id === false || $id < 1) {
+        $_SESSION['quarto_erros'] = ['Quarto inválido.'];
+        header('Location: /panaoica/cadastro/quarto');
+        exit;
+    }
+
+    try {
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $inativado = (new QuartoRepository($conn))->inativarQuarto($id);
+
+        if (!$inativado) {
+            $_SESSION['quarto_erros'] = ['Não foi possível localizar um quarto ativo para inativar.'];
+            header('Location: /panaoica/cadastro/quarto');
+            exit;
+        }
+    } catch (PDOException $exception) {
+        $_SESSION['quarto_erros'] = ['Não foi possível excluir o quarto.'];
+        header('Location: /panaoica/cadastro/quarto');
+        exit;
+    }
+
+    header('Location: /panaoica/cadastro/quarto?sucesso=excluido');
+    exit;
+}
+
 if (($_POST['acao'] ?? '') === 'editar') {
     $id = filter_var($_POST['id_acomodacao'] ?? null, FILTER_VALIDATE_INT);
     $nome = trim($_POST['nome'] ?? '');
