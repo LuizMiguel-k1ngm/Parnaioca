@@ -85,6 +85,23 @@ class QuartoRepository
 		]);
 	}
 
+	public function inativarQuarto(int $id): bool
+	{
+		$statement = $this->conn->prepare(
+			"UPDATE acomodacao
+			 SET status = :status
+			 WHERE id_acomodacao = :id_acomodacao
+			   AND status <> :status_atual"
+		);
+		$statement->execute([
+			':status' => 'inativo',
+			':id_acomodacao' => $id,
+			':status_atual' => 'inativo',
+		]);
+
+		return $statement->rowCount() === 1;
+	}
+
 
 
 }
