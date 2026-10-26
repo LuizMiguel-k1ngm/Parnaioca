@@ -166,7 +166,7 @@ unset($_SESSION['quarto_erros']);
                             <div class="row g-3">
                                 <div class="col-12 col-md-8">
                                     <label for="nome" class="form-label">Nome da acomodação <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="nome" name="nome" maxlength="250"
+                                    <input type="text" class="form-control" id="nome" name="nome" maxlength="250" oninvalid="setCustomValidity('Nome obrigatório')"
                                         placeholder="Ex.: Suíte Jardim" required>
                                 </div>
                                 <div class="col-12 col-md-4">
