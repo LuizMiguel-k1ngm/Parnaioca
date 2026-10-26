@@ -129,14 +129,14 @@ unset($_SESSION['quarto_erros']);
         <main class="main-content flex-grow-1 p-3 p-md-4">
             <div class="container-fluid">
                 <?php if ($quartoSucesso): ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <div class="alert alert-success alert-dismissible fade show alert-auto-dismiss" role="alert">
                         Quarto cadastrado com sucesso.
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
                     </div>
                 <?php endif; ?>
 
                 <?php if (!empty($quartoErros)): ?>
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <div class="alert alert-danger alert-dismissible fade show alert-auto-dismiss" role="alert">
                         <ul class="mb-0">
                             <?php foreach ($quartoErros as $quartoErro): ?>
                                 <li><?= htmlspecialchars($quartoErro, ENT_QUOTES, 'UTF-8') ?></li>
@@ -296,6 +296,13 @@ unset($_SESSION['quarto_erros']);
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/panaoica/app/Assets/javaScript/tabelaQuartos.js"></script>
+    <script>
+        document.querySelectorAll('.alert-auto-dismiss').forEach((alert) => {
+            setTimeout(() => {
+                bootstrap.Alert.getOrCreateInstance(alert).close();
+            }, 1000);
+        });
+    </script>
 </body>
 
 </html>
