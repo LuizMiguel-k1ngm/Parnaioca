@@ -46,3 +46,10 @@
                 document.getElementById('editar_status').value = button.dataset.status;
             });
         });
+
+        document.querySelectorAll('.btn-excluir-quarto').forEach((button) => {
+            button.addEventListener('click', () => {
+                document.getElementById('excluir_id_acomodacao').value = button.dataset.id;
+                document.getElementById('excluir_nome_quarto').textContent = button.dataset.nome;
+            });
+        });

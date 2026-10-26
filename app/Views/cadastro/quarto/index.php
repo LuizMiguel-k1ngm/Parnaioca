@@ -6,7 +6,7 @@ require_once __DIR__ . '/../../../Repositories/QuartoRepository.php';
 $quartosAtivos = (new QuartoRepository($conn))->buscarQuartosAtivos();
 
 $quartoErros = $_SESSION['quarto_erros'] ?? [];
-$quartoSucesso = isset($_GET['sucesso']) && $_GET['sucesso'] === '1';
+$quartoSucesso = isset($_GET['sucesso']);
 unset($_SESSION['quarto_erros']);
 
 ?>
@@ -130,7 +130,9 @@ unset($_SESSION['quarto_erros']);
             <div class="container-fluid">
                 <?php if ($quartoSucesso): ?>
                     <div class="alert alert-success alert-dismissible fade show alert-auto-dismiss" role="alert">
-                        Quarto cadastrado com sucesso.
+                        <?= $_GET['sucesso'] === 'excluido'
+                            ? 'Quarto excluído com sucesso.'
+                            : 'Quarto cadastrado com sucesso.' ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
                     </div>
                 <?php endif; ?>
@@ -275,8 +277,12 @@ unset($_SESSION['quarto_erros']);
                                                         data-status="<?= htmlspecialchars($quarto['status'] ?? 'ativo', ENT_QUOTES, 'UTF-8') ?>">
                                                         <i class="bi bi-pencil-square"></i>
                                                     </button>
-                                                    <button type="button" class="btn btn-sm btn-outline-danger"
-                                                        title="Excluir quarto" aria-label="Excluir quarto">
+                                                    <button type="button"
+                                                        class="btn btn-sm btn-outline-danger btn-excluir-quarto"
+                                                        title="Excluir quarto" aria-label="Excluir quarto"
+                                                        data-bs-toggle="modal" data-bs-target="#modalExcluirQuarto"
+                                                        data-id="<?= (int) $quarto['id_acomodacao'] ?>"
+                                                        data-nome="<?= htmlspecialchars($quarto['nome'], ENT_QUOTES, 'UTF-8') ?>">
                                                         <i class="bi bi-trash"></i>
                                                     </button>
                                                 </td>
@@ -290,6 +296,7 @@ unset($_SESSION['quarto_erros']);
                 </div>
 
                 <?php require __DIR__ . '/include/modalEditar.php'; ?>
+                <?php require __DIR__ . '/include/modalExcluir.php'; ?>
             </div>
         </main>
     </div>
