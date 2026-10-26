@@ -92,7 +92,7 @@ $numeroQuarto = trim($_POST['numero_quarto'] ?? '');
 $tipoAcomodacao = trim($_POST['tipo_acomodacao'] ?? '');
 $capacidade = trim($_POST['capacidade'] ?? '');
 $valorDiaria = trim($_POST['valor_diaria'] ?? '');
-$status = trim($_POST['status'] ?? '');
+$status = 'ativo';
 
 $_SESSION['quarto_nome'] = $nome;
 $_SESSION['quarto_numero'] = $numeroQuarto;
