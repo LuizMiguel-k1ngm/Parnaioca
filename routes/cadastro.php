@@ -17,7 +17,8 @@ return [
     'POST /cadastro/hospedes' => __DIR__ . '/../app/Controllers/HospedeController.php',
     'POST /cadastro/quarto' => __DIR__ . '/../app/Controllers/QuartoController.php',
     'POST /cadastro/frigobar' => __DIR__ . '/../app/Controllers/FrigobarController.php',
-    'POST /cadastro/quarto/editar' => __DIR__ . '/../app/Controllers/QuartoController.php'
+    'POST /cadastro/quarto/editar' => __DIR__ . '/../app/Controllers/QuartoController.php',
+    'POST /cadastro/quarto/excluir' => __DIR__ . '/../app/Controllers/QuartoController.php'
 
 
 ];
