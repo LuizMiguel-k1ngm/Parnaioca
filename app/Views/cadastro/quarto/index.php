@@ -6,7 +6,7 @@ require_once __DIR__ . '/../../../Repositories/QuartoRepository.php';
 $quartosAtivos = (new QuartoRepository($conn))->buscarQuartosAtivos();
 
 $quartoErros = $_SESSION['quarto_erros'] ?? [];
-$quartoSucesso = isset($_GET['sucesso']);
+$quartoSucesso = isset($_GET['sucesso']) && $_GET['sucesso'] === '1';
 unset($_SESSION['quarto_erros']);
 
 ?>
@@ -130,9 +130,7 @@ unset($_SESSION['quarto_erros']);
             <div class="container-fluid">
                 <?php if ($quartoSucesso): ?>
                     <div class="alert alert-success alert-dismissible fade show alert-auto-dismiss" role="alert">
-                        <?= $_GET['sucesso'] === 'excluido'
-                            ? 'Quarto excluído com sucesso.'
-                            : 'Quarto cadastrado com sucesso.' ?>
+                        Quarto cadastrado com sucesso.
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
                     </div>
                 <?php endif; ?>
