@@ -159,6 +159,7 @@ unset($_SESSION['frigobar_erros'], $_SESSION['frigobar_acomodacao'], $_SESSION['
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/panaoica/app/Assets/javaScript/sidebar.js"></script>
 </body>
 
 </html>

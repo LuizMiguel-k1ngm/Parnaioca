@@ -256,31 +256,9 @@ unset($_SESSION['consumo_erros']);
             </div>
         </main>
     </div>
-
+    <script src="/panaoica/app/Assets/javaScript/sidebar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-    const sidebarMenu = document.getElementById('sidebarMenu');
-    const sidebarToggles = [
-        document.getElementById('sidebarToggle'),
-        document.getElementById('navbarSidebarToggle')
-    ].filter(Boolean);
 
-    sidebarToggles.forEach((sidebarToggle) => {
-        sidebarToggle.addEventListener('click', () => {
-            const isCollapsed = sidebarMenu.classList.toggle('sidebar-collapsed');
-
-            sidebarToggles.forEach((toggle) => {
-                toggle.setAttribute('aria-expanded', String(!isCollapsed));
-                const icon = toggle.querySelector('i');
-
-                if (icon) {
-                    icon.classList.toggle('bi-chevron-left', !isCollapsed);
-                    icon.classList.toggle('bi-chevron-right', isCollapsed);
-                }
-            });
-        });
-    });
-    </script>
 </body>
 
 </html>
