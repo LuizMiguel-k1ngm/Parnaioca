@@ -86,7 +86,7 @@ $formatarMoeda = static fn(float $valor): string => 'R$ ' . number_format($valor
 
     <style>
         .financeiro-hero {
-            background: linear-gradient(135deg, #198754 0%, #146c43 100%);
+            background: linear-gradient(135deg, var(--brand-700) 0%, var(--brand-900) 100%);
             color: #fff;
         }
 
@@ -106,14 +106,14 @@ $formatarMoeda = static fn(float $valor): string => 'R$ ' . number_format($valor
         }
 
         .metric-icon {
-            background: #e8f5ee;
-            color: #198754;
+            background: var(--brand-100);
+            color: var(--brand-700);
             font-size: 1.25rem;
         }
 
         .metric-icon.primary {
-            background: #e7f1ff;
-            color: #0d6efd;
+            background: var(--brand-050);
+            color: var(--brand-800);
         }
 
         .metric-icon.warning {
