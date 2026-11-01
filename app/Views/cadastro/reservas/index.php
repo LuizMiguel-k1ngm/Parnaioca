@@ -35,7 +35,7 @@ $statusReservas = $conn->query(
     <link href="/panaoica/app/Assets/css/style.css" rel="stylesheet">
     <style>
         .reservation-summary {
-            background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+            background: linear-gradient(135deg, var(--brand-700), var(--brand-900));
             color: #fff;
         }
 
