@@ -1,6 +1,9 @@
 <?php
 require_once __DIR__ . '/../../config/seguranca.php';
 require_once __DIR__ . '/../../config/conn.php';
+require_once __DIR__ . '../../../Repositories/UsuarioRepository.php';
+
+$contagemClientes = (new UsuarioRepository($conn))->ContagemClientesAtivos();
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +36,7 @@ require_once __DIR__ . '/../../config/conn.php';
                         <div class="card border-0 shadow-sm h-100">
                             <div class="card-body">
                                 <div class="text-secondary small">Hóspedes</div>
-                                <div class="display-6 fw-semibold">10</div>
+                                <div class="display-6 fw-semibold"><?= $contagemClientes ?></div>
                                 <span class="text-secondary small">Cadastros realizados</span>
                             </div>
                         </div>

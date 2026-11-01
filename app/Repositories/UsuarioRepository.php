@@ -4,9 +4,7 @@ require_once __DIR__ . '/../Models/cliente/index.php';
 
 class UsuarioRepository
 {
-	public function __construct(private PDO $conn)
-	{
-	}
+	public function __construct(private PDO $conn) {}
 
 	public function buscarAtivoPorUsuario(string $usuario): ?array
 	{
@@ -20,6 +18,15 @@ class UsuarioRepository
 		$usuarioEncontrado = $statement->fetch(PDO::FETCH_ASSOC);
 
 		return $usuarioEncontrado ?: null;
+	}
+
+	public function ContagemClientesAtivos(): int
+	{
+		$statement = $this->conn->query(
+			"SELECT count(nome) FROM cliente WHERE status = 'ativo'"
+		);
+
+		return (int) $statement->fetchColumn();
 	}
 
 	public function buscarClientesAtivos(): array
@@ -86,7 +93,4 @@ class UsuarioRepository
 			':observacao' => $dados['observacao'],
 		]);
 	}
-
-
-
 }
