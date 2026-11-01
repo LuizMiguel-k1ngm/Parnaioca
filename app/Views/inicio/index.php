@@ -28,7 +28,7 @@
                         <div class="card border-0 shadow-sm h-100">
                             <div class="card-body">
                                 <div class="text-secondary small">Hóspedes</div>
-                                <div class="display-6 fw-semibold">0</div>
+                                <div class="display-6 fw-semibold">10</div>
                                 <span class="text-secondary small">Cadastros realizados</span>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                         <div class="card border-0 shadow-sm h-100">
                             <div class="card-body">
                                 <div class="text-secondary small">Quartos</div>
-                                <div class="display-6 fw-semibold">0</div>
+                                <div class="display-6 fw-semibold">20</div>
                                 <span class="text-secondary small">Quartos cadastrados</span>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                         <div class="card border-0 shadow-sm h-100">
                             <div class="card-body">
                                 <div class="text-secondary small">Reservas</div>
-                                <div class="display-6 fw-semibold">0</div>
+                                <div class="display-6 fw-semibold">7</div>
                                 <span class="text-secondary small">Reservas em andamento</span>
                             </div>
                         </div>
@@ -65,25 +65,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="app/Assets/javaScript/sidebar.js"></script>
-    <!-- <script>
-    const sidebarMenu = document.getElementById('sidebarMenu');
-    const sidebarToggles = [
-        document.getElementById('sidebarToggle'),
-        document.getElementById('navbarSidebarToggle')
-    ].filter(Boolean);
-
-    sidebarToggles.forEach((sidebarToggle) => sidebarToggle.addEventListener('click', () => {
-        const isCollapsed = sidebarMenu.classList.toggle('sidebar-collapsed');
-        sidebarToggles.forEach((toggle) => {
-            toggle.setAttribute('aria-expanded', String(!isCollapsed));
-            const icon = toggle.querySelector('i');
-            if (icon) {
-                icon.classList.toggle('bi-chevron-left', !isCollapsed);
-                icon.classList.toggle('bi-chevron-right', isCollapsed);
-            }
-        });
-    }));
-    </script> -->
 </body>
 
 </html>
