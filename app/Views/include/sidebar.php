@@ -2,15 +2,14 @@
     <div class="d-flex flex-column p-3 h-100">
 
         <div class="d-flex justify-content-end mb-3">
-            <button type="button" class="btn btn-light border sidebar-toggle" id="sidebarToggle"
-                aria-expanded="true" aria-controls="sidebarMenu" aria-label="Expandir ou recolher menu"
-                title="Expandir/recolher menu">
+            <button type="button" class="btn btn-light border sidebar-toggle" id="sidebarToggle" aria-expanded="true"
+                aria-controls="sidebarMenu" aria-label="Expandir ou recolher menu" title="Expandir/recolher menu">
                 <i class="bi bi-list" aria-hidden="true"></i>
             </button>
         </div>
 
         <div class="sidebar-label text-uppercase text-secondary small fw-semibold mb-2">
-            Navegação
+            Menu de Navegação
         </div>
 
         <nav class="nav nav-pills flex-column gap-1">
