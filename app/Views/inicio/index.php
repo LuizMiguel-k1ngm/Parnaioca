@@ -1,3 +1,8 @@
+<?php
+require_once __DIR__ . '/../../config/seguranca.php';
+require_once __DIR__ . '/../../config/conn.php';
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 

@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . '/../../../config/seguranca.php';
-
 require_once __DIR__ . '/../../../config/conn.php';
 
 $funcionarios = $conn->query(
@@ -39,21 +38,21 @@ unset($_SESSION['acesso_erros']);
         <main class="main-content flex-grow-1 p-3 p-md-4">
             <div class="container-fluid">
                 <?php if ($sucesso): ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Acesso cadastrado com sucesso.
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
-                    </div>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Acesso cadastrado com sucesso.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                </div>
                 <?php endif; ?>
 
                 <?php if (!empty($erros)): ?>
-                    <div class="alert alert-danger" role="alert">
-                        <strong>Confira os dados informados:</strong>
-                        <ul class="mb-0 mt-2">
-                            <?php foreach ($erros as $erro): ?>
-                                <li><?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
+                <div class="alert alert-danger" role="alert">
+                    <strong>Confira os dados informados:</strong>
+                    <ul class="mb-0 mt-2">
+                        <?php foreach ($erros as $erro): ?>
+                        <li><?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
                 <?php endif; ?>
 
                 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
@@ -81,12 +80,12 @@ unset($_SESSION['acesso_erros']);
                                     <select class="form-select" id="id_funcionario" name="id_funcionario" required>
                                         <option value="">Selecione o funcionário</option>
                                         <?php foreach ($funcionarios as $funcionario): ?>
-                                            <?php if (empty($funcionario['id_usuario'])): ?>
-                                                <option value="<?= (int) $funcionario['id_funcionario'] ?>">
-                                                    <?= htmlspecialchars($funcionario['nome'], ENT_QUOTES, 'UTF-8') ?>
-                                                    — <?= htmlspecialchars($funcionario['cargo'], ENT_QUOTES, 'UTF-8') ?>
-                                                </option>
-                                            <?php endif; ?>
+                                        <?php if (empty($funcionario['id_usuario'])): ?>
+                                        <option value="<?= (int) $funcionario['id_funcionario'] ?>">
+                                            <?= htmlspecialchars($funcionario['nome'], ENT_QUOTES, 'UTF-8') ?>
+                                            — <?= htmlspecialchars($funcionario['cargo'], ENT_QUOTES, 'UTF-8') ?>
+                                        </option>
+                                        <?php endif; ?>
                                         <?php endforeach; ?>
                                     </select>
                                     <div class="form-text">Somente funcionários sem acesso cadastrado aparecem aqui.
@@ -152,28 +151,28 @@ unset($_SESSION['acesso_erros']);
                                 $acessos = array_filter($funcionarios, static fn($funcionario) => !empty($funcionario['id_usuario']));
                                 ?>
                                 <?php if (empty($acessos)): ?>
-                                    <tr>
-                                        <td colspan="4" class="text-center text-secondary py-5">
-                                            <i class="bi bi-person-x fs-3 d-block mb-2"></i>
-                                            Nenhum acesso cadastrado.
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td colspan="4" class="text-center text-secondary py-5">
+                                        <i class="bi bi-person-x fs-3 d-block mb-2"></i>
+                                        Nenhum acesso cadastrado.
+                                    </td>
+                                </tr>
                                 <?php else: ?>
-                                    <?php foreach ($acessos as $funcionario): ?>
-                                        <tr>
-                                            <td class="px-4"><?= htmlspecialchars($funcionario['nome'], ENT_QUOTES, 'UTF-8') ?>
-                                            </td>
-                                            <td><?= htmlspecialchars($funcionario['cargo'], ENT_QUOTES, 'UTF-8') ?></td>
-                                            <td><?= htmlspecialchars($funcionario['usuario'], ENT_QUOTES, 'UTF-8') ?></td>
-                                            <td>
-                                                <?php if ($funcionario['acesso_status'] === 'ativo'): ?>
-                                                    <span class="badge text-bg-success">Ativo</span>
-                                                <?php else: ?>
-                                                    <span class="badge text-bg-secondary">Inativo</span>
-                                                <?php endif; ?>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
+                                <?php foreach ($acessos as $funcionario): ?>
+                                <tr>
+                                    <td class="px-4"><?= htmlspecialchars($funcionario['nome'], ENT_QUOTES, 'UTF-8') ?>
+                                    </td>
+                                    <td><?= htmlspecialchars($funcionario['cargo'], ENT_QUOTES, 'UTF-8') ?></td>
+                                    <td><?= htmlspecialchars($funcionario['usuario'], ENT_QUOTES, 'UTF-8') ?></td>
+                                    <td>
+                                        <?php if ($funcionario['acesso_status'] === 'ativo'): ?>
+                                        <span class="badge text-bg-success">Ativo</span>
+                                        <?php else: ?>
+                                        <span class="badge text-bg-secondary">Inativo</span>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
                                 <?php endif; ?>
                             </tbody>
                         </table>
@@ -185,38 +184,38 @@ unset($_SESSION['acesso_erros']);
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const sidebarMenu = document.getElementById('sidebarMenu');
-        const sidebarToggles = [
-            document.getElementById('sidebarToggle'),
-            document.getElementById('navbarSidebarToggle')
-        ].filter(Boolean);
+    const sidebarMenu = document.getElementById('sidebarMenu');
+    const sidebarToggles = [
+        document.getElementById('sidebarToggle'),
+        document.getElementById('navbarSidebarToggle')
+    ].filter(Boolean);
 
-        sidebarToggles.forEach((sidebarToggle) => {
-            sidebarToggle.addEventListener('click', () => {
-                const isCollapsed = sidebarMenu.classList.toggle('sidebar-collapsed');
+    sidebarToggles.forEach((sidebarToggle) => {
+        sidebarToggle.addEventListener('click', () => {
+            const isCollapsed = sidebarMenu.classList.toggle('sidebar-collapsed');
 
-                sidebarToggles.forEach((toggle) => {
-                    toggle.setAttribute('aria-expanded', String(!isCollapsed));
-                    const icon = toggle.querySelector('i');
+            sidebarToggles.forEach((toggle) => {
+                toggle.setAttribute('aria-expanded', String(!isCollapsed));
+                const icon = toggle.querySelector('i');
 
-                    if (icon) {
-                        icon.classList.toggle('bi-chevron-left', !isCollapsed);
-                        icon.classList.toggle('bi-chevron-right', isCollapsed);
-                    }
-                });
+                if (icon) {
+                    icon.classList.toggle('bi-chevron-left', !isCollapsed);
+                    icon.classList.toggle('bi-chevron-right', isCollapsed);
+                }
             });
         });
+    });
 
-        document.querySelector('form').addEventListener('submit', (event) => {
-            const senha = document.getElementById('senha');
-            const confirmacao = document.getElementById('senha_confirmacao');
+    document.querySelector('form').addEventListener('submit', (event) => {
+        const senha = document.getElementById('senha');
+        const confirmacao = document.getElementById('senha_confirmacao');
 
-            if (senha.value !== confirmacao.value) {
-                confirmacao.setCustomValidity('As senhas precisam ser iguais.');
-            } else {
-                confirmacao.setCustomValidity('');
-            }
-        });
+        if (senha.value !== confirmacao.value) {
+            confirmacao.setCustomValidity('As senhas precisam ser iguais.');
+        } else {
+            confirmacao.setCustomValidity('');
+        }
+    });
     </script>
 </body>
 

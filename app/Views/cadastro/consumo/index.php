@@ -21,36 +21,36 @@ unset($_SESSION['consumo_erros']);
     <link href="/panaoica/app/Assets/css/style.css" rel="stylesheet">
 
     <style>
-    .consumo-hero {
-        background: linear-gradient(135deg, var(--brand-700) 0%, var(--brand-900) 100%);
-        color: #fff;
-    }
+        .consumo-hero {
+            background: linear-gradient(135deg, var(--brand-700) 0%, var(--brand-900) 100%);
+            color: #fff;
+        }
 
-    .consumo-hero .icon-box {
-        width: 3.25rem;
-        height: 3.25rem;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: .85rem;
-        background: rgba(255, 255, 255, .16);
-        font-size: 1.6rem;
-    }
+        .consumo-hero .icon-box {
+            width: 3.25rem;
+            height: 3.25rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: .85rem;
+            background: rgba(255, 255, 255, .16);
+            font-size: 1.6rem;
+        }
 
-    .summary-card {
-        border-left: 3px solid var(--brand-800);
-    }
+        .summary-card {
+            border-left: 3px solid var(--brand-800);
+        }
 
-    .summary-card .summary-icon {
-        width: 2.5rem;
-        height: 2.5rem;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: .65rem;
-        background: var(--brand-050);
-        color: var(--brand-800);
-    }
+        .summary-card .summary-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: .65rem;
+            background: var(--brand-050);
+            color: var(--brand-800);
+        }
     </style>
 </head>
 
@@ -63,21 +63,21 @@ unset($_SESSION['consumo_erros']);
         <main class="main-content flex-grow-1 p-3 p-md-4">
             <div class="container-fluid">
                 <?php if ($sucesso): ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    Consumo registrado com sucesso.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
-                </div>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        Consumo registrado com sucesso.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                    </div>
                 <?php endif; ?>
 
                 <?php if (!empty($erros)): ?>
-                <div class="alert alert-danger" role="alert">
-                    <strong>Confira os dados informados:</strong>
-                    <ul class="mb-0 mt-2">
-                        <?php foreach ($erros as $erro): ?>
-                        <li><?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?></li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Confira os dados informados:</strong>
+                        <ul class="mb-0 mt-2">
+                            <?php foreach ($erros as $erro): ?>
+                                <li><?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
                 <?php endif; ?>
 
                 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
@@ -130,10 +130,10 @@ unset($_SESSION['consumo_erros']);
                                             <select class="form-select" id="id_cliente" name="id_cliente" required>
                                                 <option value="">Selecione o hóspede</option>
                                                 <?php foreach ($clientesAtivos as $cliente): ?>
-                                                <option value="<?= (int) $cliente['id_cliente'] ?>">
-                                                    <?= htmlspecialchars($cliente['nome'], ENT_QUOTES, 'UTF-8') ?>
-                                                    — CPF <?= htmlspecialchars($cliente['cpf'], ENT_QUOTES, 'UTF-8') ?>
-                                                </option>
+                                                    <option value="<?= (int) $cliente['id_cliente'] ?>">
+                                                        <?= htmlspecialchars($cliente['nome'], ENT_QUOTES, 'UTF-8') ?>
+                                                        — CPF <?= htmlspecialchars($cliente['cpf'], ENT_QUOTES, 'UTF-8') ?>
+                                                    </option>
                                                 <?php endforeach; ?>
                                             </select>
                                             <div class="form-text">A reserva vinculada será identificada pelo hóspede.
