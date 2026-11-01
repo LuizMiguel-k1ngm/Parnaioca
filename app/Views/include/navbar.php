@@ -1,10 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
 	<div class="container-fluid">
-		<button class="navbar-toggler me-2" type="button" id="navbarSidebarToggle"
-			aria-controls="sidebarMenu" aria-expanded="true" aria-label="Alternar sidebar" title="Alternar sidebar">
-			<i class="bi bi-layout-sidebar-inset"></i>
-		</button>
-
 		<a class="navbar-brand navbar-logo" href="/panaoica/inicio" aria-label="Ir para o início">
 			<img src="/panaoica/app/Assets/images/logo%20parnaioca.png" alt="Parnaioca Hotel & Resort">
 		</a>

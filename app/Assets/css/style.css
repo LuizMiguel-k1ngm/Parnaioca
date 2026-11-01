@@ -242,6 +242,75 @@ body.bg-light {
   flex: 1 1 auto;
 }
 
+@media (max-width: 991.98px) {
+  .navbar-logo {
+    width: 130px;
+    height: 56px;
+  }
+
+  .navbar-logo img {
+    width: 235px;
+    height: 235px;
+  }
+
+  .sidebar {
+    width: 72px;
+    flex: 0 0 72px;
+    min-height: calc(100vh - 56px);
+    overflow: hidden;
+  }
+
+  .sidebar.sidebar-collapsed {
+    width: 250px;
+    flex-basis: 250px;
+    overflow-y: auto;
+  }
+
+  .sidebar:not(.sidebar-collapsed) .sidebar-label {
+    display: none;
+  }
+
+  .sidebar:not(.sidebar-collapsed) .nav-link {
+    display: flex;
+    justify-content: center;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .sidebar:not(.sidebar-collapsed) .nav-link i {
+    margin-right: 0 !important;
+  }
+
+  .sidebar:not(.sidebar-collapsed) .sidebar-submenu {
+    display: none !important;
+  }
+
+  .sidebar.sidebar-collapsed .sidebar-label {
+    display: inline;
+  }
+
+  .sidebar.sidebar-collapsed .nav-link {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .sidebar.sidebar-collapsed .nav-link i {
+    margin-right: 0.5rem !important;
+  }
+
+  .sidebar.sidebar-collapsed .sidebar-submenu.show {
+    display: block !important;
+  }
+
+  .sidebar.sidebar-collapsed .sidebar-submenu:not(.show) {
+    display: none !important;
+  }
+
+  .main-content {
+    width: 100%;
+  }
+}
+
 @media (min-width: 992px) {
   .sidebar {
     position: sticky;
