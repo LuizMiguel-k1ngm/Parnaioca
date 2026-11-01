@@ -7,8 +7,9 @@
   --fundo: #f3f6f4;
   --superficie: #ffffff;
   --borda: #dde6e1;
-  --texto: #16231e;
+  --texto: #000000;
   --texto-suave: #55655e;
+  --texto-sidebar: #cdd8d4;
 
   /* Aliases usados pelos componentes existentes. */
   --brand-950: var(--verde-900);
@@ -16,7 +17,7 @@
   --brand-800: var(--verde-700);
   --brand-700: var(--verde-600);
   --brand-100: var(--verde-100);
-  --brand-050: #eff8f4;
+  --brand-050: #174219;
   --sand-500: var(--areia-500);
   --sand-100: #f8f2e7;
   --ink-900: var(--texto);
@@ -127,6 +128,8 @@ body.bg-light {
   flex: 0 0 250px;
   flex-shrink: 0;
   min-height: calc(100vh - 56px);
+  background-color: var(--brand-050) !important;
+  border-right-color: var(--borda) !important;
   transition:
     width 0.2s ease,
     flex-basis 0.2s ease;
@@ -185,12 +188,12 @@ body.bg-light {
 
 .sidebar-submenu {
   padding-left: 1rem;
-  background-color: var(--surface) !important;
+  background-color: var(--brand-050) !important;
 }
 
 .sidebar-submenu .nav-link {
-  color: var(--ink-900) !important;
-  background-color: var(--surface) !important;
+  color: var(--texto-sidebar) !important;
+  background-color: transparent !important;
 }
 
 .sidebar-submenu .nav-link:hover,
@@ -200,7 +203,7 @@ body.bg-light {
 }
 
 .sidebar .nav-link {
-  color: var(--texto) !important;
+  color: var(--texto-sidebar) !important;
 }
 
 .sidebar .nav-link:hover,
@@ -214,6 +217,14 @@ body.bg-light {
   background-color: var(--verde-100);
   font-weight: 600;
   border-left: 3px solid var(--verde-700);
+}
+
+.sidebar .text-secondary {
+  color: var(--texto-sidebar) !important;
+}
+
+.main-content {
+  color: #000;
 }
 
 .sidebar-collapsed .sidebar-submenu {
