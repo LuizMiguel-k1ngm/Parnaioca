@@ -29,7 +29,7 @@ $estoqueTotal = array_sum(array_column($itens, 'quantidade_estoque'));
 
     <style>
     .estoque-hero {
-        background: linear-gradient(135deg, #198754 0%, #146c43 100%);
+        background: linear-gradient(135deg, var(--brand-700) 0%, var(--brand-900) 100%);
         color: #fff;
     }
 
@@ -45,7 +45,7 @@ $estoqueTotal = array_sum(array_column($itens, 'quantidade_estoque'));
     }
 
     .summary-card {
-        border-left: 3px solid #198754;
+        border-left: 3px solid var(--brand-700);
     }
 
     .summary-card .summary-icon {
@@ -55,8 +55,8 @@ $estoqueTotal = array_sum(array_column($itens, 'quantidade_estoque'));
         align-items: center;
         justify-content: center;
         border-radius: .65rem;
-        background: #e8f5ee;
-        color: #198754;
+        background: var(--brand-100);
+        color: var(--brand-700);
     }
     </style>
 </head>
