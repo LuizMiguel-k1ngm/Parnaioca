@@ -22,7 +22,7 @@ unset($_SESSION['consumo_erros']);
 
     <style>
     .consumo-hero {
-        background: linear-gradient(135deg, #0d6efd 0%, #084298 100%);
+        background: linear-gradient(135deg, var(--brand-700) 0%, var(--brand-900) 100%);
         color: #fff;
     }
 
@@ -38,7 +38,7 @@ unset($_SESSION['consumo_erros']);
     }
 
     .summary-card {
-        border-left: 3px solid #0d6efd;
+        border-left: 3px solid var(--brand-800);
     }
 
     .summary-card .summary-icon {
@@ -48,8 +48,8 @@ unset($_SESSION['consumo_erros']);
         align-items: center;
         justify-content: center;
         border-radius: .65rem;
-        background: #e7f1ff;
-        color: #0d6efd;
+        background: var(--brand-050);
+        color: var(--brand-800);
     }
     </style>
 </head>
