@@ -11,22 +11,23 @@ $error = $_GET['msg'] ?? '';
     <title>Entrar | Parnaioca</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/panaoica/app/Assets/css/style.css" rel="stylesheet">
     <style>
         :root {
-            --login-ink: #1d2925;
-            --login-muted: #708078;
-            --login-accent: #1f6b55;
-            --login-accent-dark: #185543;
-            --login-border: #dce5e0;
-            --login-surface: #ffffff;
-            --login-background: #f4f7f5;
+            --login-ink: var(--ink-900);
+            --login-muted: var(--ink-600);
+            --login-accent: var(--brand-800);
+            --login-accent-dark: var(--verde-600);
+            --login-border: var(--border);
+            --login-surface: var(--superficie);
+            --login-background: var(--fundo);
         }
 
         body {
             min-height: 100vh;
             color: var(--login-ink);
             background:
-                radial-gradient(circle at 12% 10%, rgba(196, 220, 207, 0.45), transparent 30rem),
+                radial-gradient(circle at 12% 10%, rgba(212, 234, 221, 0.5), transparent 30rem),
                 var(--login-background);
         }
 
