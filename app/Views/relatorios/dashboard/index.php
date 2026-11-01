@@ -64,7 +64,7 @@ $statusClasses = [
 
     <style>
     .dashboard-hero {
-        background: linear-gradient(135deg, #0d6efd 0%, #084298 100%);
+        background: linear-gradient(135deg, var(--brand-700) 0%, var(--brand-900) 100%);
         color: #fff;
     }
 
@@ -94,14 +94,14 @@ $statusClasses = [
     }
 
     .metric-icon {
-        background: #e7f1ff;
-        color: #0d6efd;
+        background: var(--brand-050);
+        color: var(--brand-800);
         font-size: 1.25rem;
     }
 
     .metric-icon.success {
-        background: #e8f5ee;
-        color: #198754;
+        background: var(--brand-100);
+        color: var(--brand-700);
     }
 
     .metric-icon.warning {
