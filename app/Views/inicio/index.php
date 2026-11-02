@@ -3,9 +3,11 @@ require_once __DIR__ . '/../../config/seguranca.php';
 require_once __DIR__ . '/../../config/conn.php';
 require_once __DIR__ . '../../../Repositories/UsuarioRepository.php';
 require_once __DIR__ . '../../../Repositories/QuartoRepository.php';
+require_once __DIR__ . '../../../Repositories/ReservaRepository.php';
 
 $contagemClientes = (new UsuarioRepository($conn))->contagemClientesAtivos();
 $contagemQuartos = (new QuartoRepository($conn))->contagemQuartos();
+$contagemReserva = (new ReservaRepository($conn))->contagemReservasAtivas();
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +58,7 @@ $contagemQuartos = (new QuartoRepository($conn))->contagemQuartos();
                         <div class="card border-0 shadow-sm h-100">
                             <div class="card-body">
                                 <div class="text-secondary small">Reservas</div>
-                                <div class="display-6 fw-semibold">7</div>
+                                <div class="display-6 fw-semibold"><?= $contagemReserva ?></div>
                                 <span class="text-secondary small">Reservas em andamento</span>
                             </div>
                         </div>
