@@ -26,4 +26,11 @@ class ReservaRepository
 
         return $reservaEncontrada ?: null;
     }
+
+
+    public function contagemReservasAtivas(): int
+    {
+        $statement = $this->conn->query("SELECT count(*) from reserva where status = 'ativo'");
+        return (int) $statement->fetchColumn();
+    }
 }
