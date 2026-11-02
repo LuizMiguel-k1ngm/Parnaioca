@@ -20,7 +20,7 @@ class UsuarioRepository
 		return $usuarioEncontrado ?: null;
 	}
 
-	public function ContagemClientesAtivos(): int
+	public function contagemClientesAtivos(): int
 	{
 		$statement = $this->conn->query(
 			"SELECT count(nome) FROM cliente WHERE status = 'ativo'"
