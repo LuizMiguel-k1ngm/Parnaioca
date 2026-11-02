@@ -23,6 +23,14 @@ class QuartoRepository
 		return $statement->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	public function contagemQuartos(): int
+	{
+		$statement = $this->conn->query("SELECT count(nome) FROM acomodacao");
+
+		return (int) $statement->fetchColumn();
+	}
+
+
 	public function criarQuarto(Quarto $quarto): void
 	{
 		$sql = 'INSERT INTO acomodacao
@@ -101,7 +109,4 @@ class QuartoRepository
 
 		return $statement->rowCount() === 1;
 	}
-
-
-
 }
