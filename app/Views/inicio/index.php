@@ -2,8 +2,10 @@
 require_once __DIR__ . '/../../config/seguranca.php';
 require_once __DIR__ . '/../../config/conn.php';
 require_once __DIR__ . '../../../Repositories/UsuarioRepository.php';
+require_once __DIR__ . '../../../Repositories/QuartoRepository.php';
 
-$contagemClientes = (new UsuarioRepository($conn))->ContagemClientesAtivos();
+$contagemClientes = (new UsuarioRepository($conn))->contagemClientesAtivos();
+$contagemQuartos = (new QuartoRepository($conn))->contagemQuartos();
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +47,7 @@ $contagemClientes = (new UsuarioRepository($conn))->ContagemClientesAtivos();
                         <div class="card border-0 shadow-sm h-100">
                             <div class="card-body">
                                 <div class="text-secondary small">Quartos</div>
-                                <div class="display-6 fw-semibold">20</div>
+                                <div class="display-6 fw-semibold"><?= $contagemQuartos ?></div>
                                 <span class="text-secondary small">Quartos cadastrados</span>
                             </div>
                         </div>
