@@ -32,7 +32,8 @@ class UsuarioRepository
 	public function buscarClientesAtivos(): array
 	{
 		$statement = $this->conn->query(
-			"SELECT id_cliente, nome, cpf, telefone, email, status
+			"SELECT id_cliente, nome, data_nascimento, cpf, email, telefone, cep,
+                    estado, cidade, rg, endereco, numero, pais, observacao, status
 			 FROM cliente
 			 ORDER BY nome"
 		);
@@ -92,5 +93,62 @@ class UsuarioRepository
 			':pais' => $dados['pais'],
 			':observacao' => $dados['observacao'],
 		]);
+	}
+
+	public function atualizarHospede(int $id, Hospede $hospede, string $status): void
+	{
+		$sql = 'UPDATE cliente
+			SET nome = :nome,
+				data_nascimento = :data_nascimento,
+				cpf = :cpf,
+				email = :email,
+				telefone = :telefone,
+				cep = :cep,
+				estado = :estado,
+				cidade = :cidade,
+				rg = :rg,
+				endereco = :endereco,
+				numero = :numero,
+				pais = :pais,
+				observacao = :observacao,
+				status = :status
+			WHERE id_cliente = :id_cliente';
+
+		$dados = $hospede->dados();
+		$statement = $this->conn->prepare($sql);
+		$statement->execute([
+			':nome' => $dados['nome'],
+			':data_nascimento' => $dados['data_nascimento'],
+			':cpf' => $dados['cpf'],
+			':email' => $dados['email'],
+			':telefone' => $dados['telefone'],
+			':cep' => $dados['cep'],
+			':estado' => $dados['estado'],
+			':cidade' => $dados['cidade'],
+			':rg' => $dados['rg'],
+			':endereco' => $dados['endereco'],
+			':numero' => $dados['numero'],
+			':pais' => $dados['pais'],
+			':observacao' => $dados['observacao'],
+			':status' => $status,
+			':id_cliente' => $id,
+		]);
+	}
+
+	public function inativarHospede(int $id): bool
+	{
+		$statement = $this->conn->prepare(
+			"UPDATE cliente
+			 SET status = :status
+			 WHERE id_cliente = :id_cliente
+			   AND status <> :status_atual"
+		);
+		$statement->execute([
+			':status' => 'inativo',
+			':id_cliente' => $id,
+			':status_atual' => 'inativo',
+		]);
+
+		return $statement->rowCount() === 1;
 	}
 }
