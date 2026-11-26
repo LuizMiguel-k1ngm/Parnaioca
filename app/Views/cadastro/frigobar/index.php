@@ -24,6 +24,7 @@ unset($_SESSION['frigobar_erros'], $_SESSION['frigobar_acomodacao'], $_SESSION['
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="/panaoica/app/Assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/v/dt/dt-3.1.1/datatables.min.css">
 </head>
 
 <body class="bg-light">
@@ -121,13 +122,14 @@ unset($_SESSION['frigobar_erros'], $_SESSION['frigobar_acomodacao'], $_SESSION['
                         <span class="badge text-bg-secondary"><?= count($frigobares) ?> registros</span>
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0">
+                        <table id="tabelaFrigobar" class="table table-hover align-middle mb-0">
                             <thead class="table-light">
                                 <tr>
                                     <th class="px-4">Acomodação</th>
                                     <th>Número</th>
                                     <th>Identificação</th>
                                     <th>Status</th>
+                                    <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -144,9 +146,29 @@ unset($_SESSION['frigobar_erros'], $_SESSION['frigobar_acomodacao'], $_SESSION['
                                     <td><?= (int) $frigobar['numero_quarto'] ?></td>
                                     <td><?= htmlspecialchars($frigobar['numero_identificacao'] ?: '-', ENT_QUOTES, 'UTF-8') ?>
                                     </td>
-                                    <td><span
-                                            class="badge <?= $frigobar['status'] === 'ativo' ? 'text-bg-success' : 'text-bg-secondary' ?>"><?= htmlspecialchars($frigobar['status_descricao'], ENT_QUOTES, 'UTF-8') ?></span>
+                                    <?php
+                                            $status = strtoupper((string) $frigobar['status_descricao']);
+
+                                            $corStatus = match ($status) {
+                                                'ATIVO' => 'text-bg-success',
+                                                'INATIVO' => 'text-bg-danger',
+                                                'MANUTENCAO' => 'text-bg-warning',
+                                                'LIMPEZA' => 'text-bg-info',
+                                                default => 'text-bg-secondary',
+                                            };
+
+                                            ?>
+                                    <td>
+
+                                        <span class="badge <?= $corStatus ?>">
+                                            <?= htmlspecialchars($frigobar['status_descricao'], ENT_QUOTES, 'UTF-8') ?>
+                                        </span>
+
                                     </td>
+
+                                    <th>
+                                        <p>😀</p>
+                                    </th>
                                 </tr>
                                 <?php endforeach; ?>
                                 <?php endif; ?>
@@ -160,6 +182,39 @@ unset($_SESSION['frigobar_erros'], $_SESSION['frigobar_acomodacao'], $_SESSION['
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/panaoica/app/Assets/javaScript/sidebar.js"></script>
+    <script src="https://cdn.datatables.net/v/dt/dt-3.1.1/datatables.min.js"></script>
+
+    <script>
+    new DataTable("#tabelaFrigobar", {
+        pageLength: 5,
+        lengthMenu: [5, 10, 25, 50],
+        language: {
+            search: 'Buscar:',
+            lengthMenu: 'Mostrar _MENU_ registros',
+            info: 'Mostrando _START_ a _END_ de _TOTAL_ registros',
+            infoEmpty: 'Nenhum registro encontrado',
+            zeroRecords: 'Nenhum frigobar encontrado',
+            paginate: {
+                first: 'Primeiro',
+                last: 'Último',
+                next: 'Próximo',
+                previous: 'Anterior'
+            }
+        }
+
+
+
+
+    })
+
+
+    document.querySelector("#filtroStatus").addEventListener("change", function() {
+        tabela.column(3).search(this.value).draw();
+    })
+    </script>
+
+
+
 </body>
 
 </html>
