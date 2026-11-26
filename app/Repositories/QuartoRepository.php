@@ -16,7 +16,6 @@ class QuartoRepository
 		$statement = $this->conn->query(
 			"SELECT id_acomodacao, nome, numero_quarto, tipo_acomodacao, capacidade, valor_diaria, status
 			 FROM acomodacao
-			 WHERE status = 'ativo'
 			 ORDER BY numero_quarto"
 		);
 
