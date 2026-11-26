@@ -39,7 +39,7 @@ class FrigobarRepository
     {
         $statement = $this->conn->query(
             "SELECT f.id_acomodacao, f.numero_identificacao, f.status,
-                    a.nome, a.numero_quarto, s.descricao AS status_descricao
+                    a.nome, a.numero_quarto, s.codigo AS status_descricao
              FROM frigobar f
              INNER JOIN acomodacao a ON a.id_acomodacao = f.id_acomodacao
              INNER JOIN status_frigobar s ON s.id_status_frigobar = f.id_status_frigobar
