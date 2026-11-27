@@ -165,17 +165,21 @@ unset($_SESSION['quarto_erros']);
                         <form method="post" action="/panaoica/cadastro/quarto">
                             <div class="row g-3">
                                 <div class="col-12 col-md-8">
-                                    <label for="nome" class="form-label">Nome da acomodação <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="nome" name="nome" maxlength="250" oninvalid="setCustomValidity('Nome obrigatório')"
+                                    <label for="nome" class="form-label">Nome da acomodação <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="nome" name="nome" maxlength="250"
+                                        oninvalid="setCustomValidity('Nome obrigatório')"
                                         placeholder="Ex.: Suíte Jardim" required>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <label for="numero_quarto" class="form-label">Número do quarto <span class="text-danger">*</span></label>
+                                    <label for="numero_quarto" class="form-label">Número do quarto <span
+                                            class="text-danger">*</span></label>
                                     <input type="number" class="form-control" id="numero_quarto" name="numero_quarto"
                                         min="1" placeholder="Ex.: 101" required>
                                 </div>
                                 <div class="col-12 col-md-5">
-                                    <label for="tipo_acomodacao" class="form-label">Tipo de acomodação <span class="text-danger">*</span></label>
+                                    <label for="tipo_acomodacao" class="form-label">Tipo de acomodação <span
+                                            class="text-danger">*</span></label>
                                     <select class="form-select" id="tipo_acomodacao" name="tipo_acomodacao" required>
                                         <option value="">Selecione</option>
                                         <option value="Quarto">Quarto</option>
@@ -185,12 +189,14 @@ unset($_SESSION['quarto_erros']);
                                     </select>
                                 </div>
                                 <div class="col-12 col-md-3">
-                                    <label for="capacidade" class="form-label">Capacidade <span class="text-danger">*</span></label>
+                                    <label for="capacidade" class="form-label">Capacidade <span
+                                            class="text-danger">*</span></label>
                                     <input type="number" class="form-control" id="capacidade" name="capacidade" min="1"
                                         placeholder="Hóspedes" required>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <label for="valor_diaria" class="form-label">Valor da diária <span class="text-danger">*</span></label>
+                                    <label for="valor_diaria" class="form-label">Valor da diária <span
+                                            class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <span class="input-group-text">R$</span>
                                         <input type="number" class="form-control" id="valor_diaria" name="valor_diaria"
@@ -213,6 +219,20 @@ unset($_SESSION['quarto_erros']);
                         <h2 class="h5 mb-0"><i class="bi bi-buildings me-2 text-primary"></i>Quartos cadastrados</h2>
                         <span class="badge text-bg-secondary"><?= count($quartosAtivos) ?> registros</span>
                     </div>
+
+                    <div class="mb-3 m-2">
+                        <label for="filtroStatus" class="form-label">
+                            Filtrar por status:
+                        </label>
+
+                        <select id="filtroStatus" class="form-select" style="max-width: 200px;">
+                            <option value="">Todos</option>
+                            <option value="ativo">Ativos</option>
+                            <option value="inativo">Inativos</option>
+                        </select>
+                    </div>
+
+
                     <div class="card-body p-0">
                         <div class="quartos-table-wrapper">
                             <table id="tabelaQuartos" class="table table-hover align-middle mb-0">
@@ -231,8 +251,8 @@ unset($_SESSION['quarto_erros']);
                                         <th>Número</th>
                                         <th>Tipo</th>
                                         <th class="text-center">Capacidade</th>
-                                        <th class="text-end">Diária</th>
-                                        <th>Status</th>
+                                        <th class="text-center">Diária</th>
+                                        <th class="text-center">Status</th>
                                         <th class="text-end px-4">Ações</th>
                                     </tr>
                                 </thead>
@@ -255,13 +275,18 @@ unset($_SESSION['quarto_erros']);
                                                 <td class="text-center">
                                                     <?= htmlspecialchars($quarto['capacidade'] ?? '-', ENT_QUOTES, 'UTF-8') ?>
                                                 </td>
-                                                <td class="text-end">
+                                                <td class="text-center">
                                                     R$ <?= number_format((float) ($quarto['valor_diaria'] ?? 0), 2, ',', '.') ?>
                                                 </td>
+                                                <?php $status = strtolower((string) ($quarto['status'] ?? '')); ?>
+
                                                 <td>
-                                                    <span class="badge text-bg-success">Ativo</span>
+                                                    <span
+                                                        class="badge <?= $status === 'ativo' ? 'text-bg-success' : 'text-bg-danger' ?>">
+                                                        <?= htmlspecialchars(ucfirst($status ?: '-'), ENT_QUOTES, 'UTF-8') ?>
+                                                    </span>
                                                 </td>
-                                                <td class="quarto-actions text-end px-4">
+                                                <td class="quarto-actions text-center px-4">
                                                     <button type="button"
                                                         class="btn btn-sm btn-outline-warning me-1 btn-editar-quarto"
                                                         title="Editar quarto" aria-label="Editar quarto" data-bs-toggle="modal"
