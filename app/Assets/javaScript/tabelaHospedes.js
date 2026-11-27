@@ -30,7 +30,7 @@ document.getElementById("filtroStatus").addEventListener("change", function () {
   const valor = this.value;
 
   tabela
-    .column(5)
+    .column(4)
     .search(valor ? "^\\s*" + valor + "\\s*$" : "", {
       regex: true,
       smart: false,
